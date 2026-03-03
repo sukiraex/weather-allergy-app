@@ -1,178 +1,70 @@
-# Weather-Allergy-App
-GUI coursework group 55
-A React weather app with pollen tracking, symptom logging, and medication reminders — built with a dark/light theme system.
+# Getting Started with Create React App
 
-## Project Overview
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-This dashboard displays real-time weather and pollen data for a given location. It includes:
+## Available Scripts
 
-- Current weather + 7-day forecast
-- Pollen count with tree, grass and weed breakdown
-- Symptom tracker with severity logging
-- Medication schedule and reminders
-- Changing widget, humidity, UV info widgets
-- Full dark / light mode toggle
+In the project directory, you can run:
 
-## Team Task Split
+### `npm start`
 
-There are 9 tasks. **Tasks 1 and 2 must be completed before anyone else starts.** All other tasks can be worked on in parallel after that.
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-### ✅ Task 1 — API Layer
+The page will reload when you make changes.\
+You may also see any lint errors in the console.
 
-Responsibilities:
-- Set up weather API fetch (current temp, hourly forecast, 7-day forecast)
-- Set up pollen API fetch (overall score, tree/grass/weed levels)
-- Write and export the following custom hooks:
-  - `useWeather(location)` — returns weather data
-  - `usePollen(location)` — returns pollen data
-- Define and document the shape of data returned by each hook so all other team members know exactly what props to expect
+### `npm test`
 
-### ✅ Task 2 — Theme System
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-Responsibilities:
-- Write all CSS variables for **both light and dark mode** in `src/styles/theme.css`
-- This file is the **single source of truth** for every colour, font size, spacing value and border radius used in the app
-- Write `src/utils/theme.js` which exports `toggleTheme()` and `getTheme()`
-- Test that switching themes updates all variables correctly
+### `npm run build`
 
-`src/styles/theme.css` must include variables for:
-- Background colours (app, cards, secondary)
-- Text colours (primary, secondary, muted)
-- Pollen severity colours (low, medium, high, very high)
-- Symptom severity colours
-- Pollen card gradient
-- Progress bar colours
-- Border and shadow colours
-- Font family, font sizes (xl, lg, md, sm, xs)
-- Spacing (card padding, gap, border radius)
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
-> ⚠️ **This task must be finished before card work begins.** If you need a variable that doesn't exist yet, message the theme person to add it — do not write hex codes in your component.
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
 
-### 🔲 Task 3 — Header
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-**Depends on:** Task 2 (theme system)
+### `npm run eject`
 
-Responsibilities:
-- Location title with pin icon
-- Live date and time display
-- Dark / light mode toggle button (moon/sun icon, visible in top right)
-- Import and call `toggleTheme()` from `src/utils/theme.js` on button click
+**Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
-### 🔲 Task 4 — Weather Card
+If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-**Depends on:** Task 1 (API) + Task 2 (theme)
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
-Responsibilities:
-- Current temperature display
-- Weather condition label (e.g. "Rain Shower")
-- Feels like + high/low temps
-- Hourly forecast row (icons + temps for each hour)
-- 7-day forecast panel — each day shows: day name, rain chance, weather icon, high/low, pollen score and pollen badge
+You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-Use `useWeather()` hook for all data. Use `var(--variable-name)` for all colours.
+## Learn More
 
-### 🔲 Task 5 — Pollen Count Card
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-**Depends on:** Task 1 (API) + Task 2 (theme)
+To learn React, check out the [React documentation](https://reactjs.org/).
 
-Responsibilities:
-- Gradient background card (use `var(--pollen-gradient)`)
-- Large pollen score + level label (e.g. "8.2 HIGH")
-- Three progress bars: Tree, Grass, Weed — each with percentage
-- Trend label at the bottom (e.g. "Rising throughout the day")
+### Code Splitting
 
-Use `usePollen()` hook for all data.
+This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
 
-### 🔲 Task 6 — Symptom Tracker Card
+### Analyzing the Bundle Size
 
-**Depends on:** Task 2 (theme)
+This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
 
-Responsibilities:
-- List of symptoms with checkboxes (Sneezing, Runny nose, Itchy eyes, Congestion, Headache, Fatigue)
-- Severity label next to each active symptom (High / Moderate) using severity colour variables
-- Today's status warning banner at the bottom
-- "Log Symptoms" gradient button
+### Making a Progressive Web App
 
-Note: symptom data can be local state for now (no API needed).
+This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
 
-### 🔲 Task 7 — Medication Card
+### Advanced Configuration
 
-**Depends on:** Task 2 (theme)
+This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
 
-Responsibilities:
-- Header with "Medication" title, "X/4 taken today" subtitle and + button
-- Progress bar showing how many medications have been taken
-- List of medications, each with: name, dosage, time, checkbox to mark as taken
-- "Next Dose" alert banner at the bottom showing the next upcoming medication
+### Deployment
 
-Note: medication data can be hardcoded as local state for now.
+This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
 
-### 🔲 Task 8 — Info Widgets
+### `npm run build` fails to minify
 
-**Depends on:** Task 1 (API) + Task 2 (theme)
-
-Responsibilities:
-- Sunset card — displays sunset time with icon and "Don't miss the sunset" label
-- Wind tile — speed in mph
-- Humidity tile — percentage
-- UV Index tile — level label (Low / Medium / High)
-
-Use `useWeather()` hook for all data.
-
-### 🔲 Task 9 — Video Submission
-
-
-## Dependency Order
-
-```
-Task 1 — API Layer          ← start immediately
-Task 2 — Theme System       ← start immediately
-
-After Task 1 + 2 are done:
-
-Task 3 — Header             ← needs Task 2
-Task 4 — Weather Card       ← needs Task 1 + 2
-Task 5 — Pollen Card        ← needs Task 1 + 2
-Task 6 — Symptom Tracker    ← needs Task 2
-Task 7 — Medication Card    ← needs Task 2
-Task 8 — Info Widgets       ← needs Task 1 + 2
-Task 9 - Video Submission
-```
-
----
-
-## Possible Folder Structure
-
-```
-src/
-├── components/
-│   ├── Header/
-│   │   └── Header.jsx
-│   ├── WeatherCard/
-│   │   └── WeatherCard.jsx
-│   ├── PollenCard/
-│   │   └── PollenCard.jsx
-│   ├── SymptomTracker/
-│   │   └── SymptomTracker.jsx
-│   ├── MedicationCard/
-│   │   └── MedicationCard.jsx
-│   └── InfoWidgets/
-│       └── InfoWidgets.jsx
-├── hooks/
-│   ├── useWeather.js
-│   └── usePollen.js
-├── styles/
-│   └── theme.css          ← all CSS variables, light + dark
-├── utils/
-│   └── theme.js           ← toggleTheme(), getTheme()
-└── App.jsx                ← assembles all components
-```
-
----
-
-## Theme System — Read This First
-
-All colours, fonts and spacing live in `src/styles/theme.css` as CSS custom properties. The file defines two sets of values — one for light mode under `:root` and one for dark mode under `[data-theme="dark"]`.
-
-When the toggle is clicked, the `data-theme` attribute on the root `<html>` element switches between `"light"` and `"dark"`. Every component updates automatically because they all reference the same variables.
-
+This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
