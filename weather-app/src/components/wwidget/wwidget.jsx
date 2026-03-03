@@ -1,186 +1,270 @@
-// src/components/ForecastWidget.jsx (for example)
-import React from 'react';
 import { useWeather } from '../../hooks/useWeather';
-import './wwidget.css';
+import { usePollen } from '../../hooks/usePollen';
 
-/* ...rest of ForecastWidget component I sent earlier stays the same... */
-
-const getPollenInfo = (rainChance, index) => {
-  // Simple, deterministic mapping so it feels consistent without a pollen API.
-  // You can replace this with real pollen data later.
-  const baseScore = 2 + (index * 0.9) + (rainChance / 30);
-  let label = 'Low';
-  let tone = 'low';
-
-  if (baseScore >= 8.5) {
-    label = 'Very High';
-    tone = 'very-high';
-  } else if (baseScore >= 6.5) {
-    label = 'High';
-    tone = 'high';
-  } else if (baseScore >= 4) {
-    label = 'Medium';
-    tone = 'medium';
-  }
-
-  return {
-    score: baseScore.toFixed(1),
-    label,
-    tone,
-  };
+// Hardcoded colours — replace with var(--variable) once theme file is ready
+const colors = {
+  cardBg: '#deeaf5',
+  forecastRowBg: 'rgba(255,255,255,0.5)',
+  textPrimary: '#1a2e42',
+  textSecondary: '#4a6580',
+  textMuted: '#7a95aa',
+  white: '#ffffff',
+  rainBlue: '#4a90d9',
+  pollenLow: '#22c55e',
+  pollenMedium: '#f97316',
+  pollenHigh: '#ef4444',
+  pollenVeryHigh: '#dc2626',
 };
 
-const getOpenWeatherIconUrl = (iconCode) =>
-  iconCode ? `https://openweathermap.org/img/wn/${iconCode}@2x.png` : undefined;
-
-export default function ForecastWidget({ city }) {
-  const { current, hourly, daily, loading, error } = useWeather(city);
-
-  if (!city) {
-    return (
-      <div className="forecast-widget">
-        <p className="forecast-widget__empty">Choose a city to see the forecast.</p>
-      </div>
-    );
+const getPollenColor = (label) => {
+  switch (label) {
+    case 'Low': return colors.pollenLow;
+    case 'Medium': return colors.pollenMedium;
+    case 'High': return colors.pollenHigh;
+    case 'Very High': return colors.pollenVeryHigh;
+    default: return colors.textMuted;
   }
+};
 
-  if (loading) {
-    return (
-      <div className="forecast-widget forecast-widget--loading">
-        <div className="forecast-widget__spinner" />
-        <p className="forecast-widget__status">Loading weather…</p>
-      </div>
-    );
-  }
+const WeatherIcon = ({ icon, size = 40 }) => (
+  <img
+    src={`https://openweathermap.org/img/wn/${icon}@2x.png`}
+    alt="weather icon"
+    width={size}
+    height={size}
+    style={{ display: 'block' }}
+  />
+);
 
-  if (error || !current) {
-    return (
-      <div className="forecast-widget forecast-widget--error">
-        <p className="forecast-widget__status">
-          {error || 'Unable to load weather data.'}
-        </p>
-      </div>
-    );
-  }
+export default function WeatherCard({ city = 'London' }) {
+  const { current, hourly, daily, loading: wLoading, error: wError } = useWeather(city);
+  const { daily: pollenDaily, loading: pLoading } = usePollen(city);
 
-  const displayCity = current.city || city;
-  const todayLabel = 'Today';
+  if (wLoading || pLoading) return (
+    <div style={styles.card}>
+      <p style={{ color: colors.textSecondary, padding: '20px' }}>Loading...</p>
+    </div>
+  );
+
+  if (wError) return (
+    <div style={styles.card}>
+      <p style={{ color: '#ef4444', padding: '20px' }}>{wError}</p>
+    </div>
+  );
 
   return (
-    <section className="forecast-widget" aria-label="Weather forecast">
-      {/* Header: current conditions */}
-      <header className="forecast-widget__header">
-        <div className="forecast-widget__header-main">
-          <p className="forecast-widget__temperature">
-            {Math.round(current.temperature)}°
-          </p>
-          <p className="forecast-widget__condition">
-            {current.description || current.condition}
-          </p>
-          <p className="forecast-widget__meta">
-            {Math.round(current.high)}° / {Math.round(current.low)}° · Feels like{' '}
-            {Math.round(current.feelsLike)}°
-          </p>
-          <p className="forecast-widget__city">{displayCity}</p>
-        </div>
+    <div style={styles.card}>
 
-        <div className="forecast-widget__icon-circle" aria-hidden="true">
-          {current.icon && (
-            <img
-              src={getOpenWeatherIconUrl(current.icon)}
-              alt={current.condition}
-              className="forecast-widget__icon-main"
-            />
-          )}
-        </div>
-      </header>
-
-      {/* Hourly strip */}
-      {hourly && hourly.length > 0 && (
-        <section
-          className="forecast-widget__hourly"
-          aria-label="Hourly forecast"
-        >
-          {hourly.slice(0, 6).map((h, idx) => (
-            <div key={`${h.time}-${idx}`} className="hourly-chip">
-              <p className="hourly-chip__time">{h.time}</p>
-              <div className="hourly-chip__icon-wrap">
-                {h.icon && (
-                  <img
-                    src={getOpenWeatherIconUrl(h.icon)}
-                    alt={h.condition}
-                    className="hourly-chip__icon"
-                  />
-                )}
-              </div>
-              <p className="hourly-chip__temp">{Math.round(h.temperature)}°</p>
-            </div>
-          ))}
-        </section>
-      )}
-
-      {/* 7‑day forecast */}
-      {daily && daily.length > 0 && (
-        <section
-          className="forecast-panel"
-          aria-label="7-day forecast and pollen levels"
-        >
-          <header className="forecast-panel__header">
-            <p className="forecast-panel__title">7-Day Forecast</p>
-            <p className="forecast-panel__subtitle">
-              Weather &amp; Pollen Levels
-            </p>
-          </header>
-
-          <div className="forecast-panel__list">
-            {daily.slice(0, 7).map((dayItem, index) => {
-              const isYesterday = index === 0 && dayItem.day !== todayLabel;
-              const isToday = index === 0 || dayItem.day === todayLabel;
-              const label = isYesterday ? 'Yesterday' : isToday ? 'Today' : dayItem.day;
-
-              const { score, label: pollenLabel, tone } = getPollenInfo(
-                dayItem.rainChance ?? 0,
-                index
-              );
-
-              return (
-                <div
-                  key={dayItem.date}
-                  className="forecast-row"
-                  data-variant={isYesterday ? 'yesterday' : isToday ? 'today' : 'default'}
-                >
-                  <div className="forecast-row__main">
-                    <div className="forecast-row__labels">
-                      <p className="forecast-row__day">{label}</p>
-                      <p className="forecast-row__detail">
-                        Pollen:{' '}
-                        <span className={`pill pill--${tone}`}>
-                          {score} {pollenLabel}
-                        </span>
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="forecast-row__meta">
-                    <span className="forecast-row__icon-wrap">
-                      {dayItem.icon && (
-                        <img
-                          src={getOpenWeatherIconUrl(dayItem.icon)}
-                          alt={dayItem.condition}
-                          className="forecast-row__icon"
-                        />
-                      )}
-                    </span>
-                    <span className="forecast-row__temps">
-                      {Math.round(dayItem.high)}° / {Math.round(dayItem.low)}°
-                    </span>
-                  </div>
-                </div>
-              );
-            })}
+      {/* Current Weather */}
+      <div style={styles.currentSection}>
+        <div style={styles.currentLeft}>
+          <div style={styles.temperature}>{current.temperature}°</div>
+          <div style={styles.condition}>{current.description}</div>
+          <div style={styles.hiLow}>
+            {current.high}° / {current.low}° · Feels like {current.feelsLike}°
           </div>
-        </section>
-      )}
-    </section>
+        </div>
+        <div>
+          <WeatherIcon icon={current.icon} size={72} />
+        </div>
+      </div>
+
+      {/* Hourly Forecast */}
+      <div style={styles.hourlyRow}>
+        {hourly.map((h, i) => (
+          <div key={i} style={styles.hourlyItem}>
+            <span style={styles.hourlyTime}>{h.time}</span>
+            <WeatherIcon icon={h.icon} size={28} />
+            <span style={styles.hourlyTemp}>{h.temperature}°</span>
+          </div>
+        ))}
+      </div>
+
+      {/* 7-Day Forecast */}
+      <div style={styles.forecastSection}>
+        <div style={styles.forecastHeader}>
+          <span style={styles.forecastTitle}>7-Day Forecast</span>
+          <span style={styles.forecastSubtitle}>Weather & Pollen Levels</span>
+        </div>
+
+        {daily.map((day, i) => {
+          const pollen = pollenDaily?.[i];
+          const label = i === 0 ? 'Today' : i === 1 ? 'Tomorrow' : day.day;
+
+          return (
+            <div key={i} style={styles.forecastRow}>
+              <span style={styles.forecastDay}>{label}</span>
+
+              {day.rainChance > 0 && (
+                <span style={styles.rainChance}>◇ {day.rainChance}%</span>
+              )}
+
+              <div style={{ flex: 1, display: 'flex', alignItems: 'center' }}>
+                <WeatherIcon icon={day.icon} size={22} />
+              </div>
+
+              <span style={styles.forecastTemps}>
+                {day.high}° <span style={{ color: colors.textSecondary, fontWeight: 400 }}>{day.low}°</span>
+              </span>
+
+              {pollen && (
+                <div style={styles.pollenRow}>
+                  <span style={styles.pollenIcon}>⚘</span>
+                  <span style={styles.pollenScore}>{pollen.score}</span>
+                  <span style={{
+                    ...styles.pollenBadge,
+                    backgroundColor: getPollenColor(pollen.label),
+                  }}>
+                    {pollen.label}
+                  </span>
+                </div>
+              )}
+            </div>
+          );
+        })}
+      </div>
+    </div>
   );
 }
+
+const styles = {
+  card: {
+    backgroundColor: '#deeaf5',
+    borderRadius: '24px',
+    padding: '20px',
+    width: '340px',
+    fontFamily: "'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif",
+    boxShadow: '0 4px 24px rgba(0,0,0,0.08)',
+  },
+  currentSection: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'flex-start',
+    marginBottom: '16px',
+  },
+  currentLeft: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '4px',
+  },
+  temperature: {
+    fontSize: '56px',
+    fontWeight: '300',
+    color: '#1a2e42',
+    lineHeight: 1,
+    letterSpacing: '-2px',
+  },
+  condition: {
+    fontSize: '18px',
+    fontWeight: '500',
+    color: '#1a2e42',
+    textTransform: 'capitalize',
+    marginTop: '4px',
+  },
+  hiLow: {
+    fontSize: '13px',
+    color: '#4a6580',
+    marginTop: '2px',
+  },
+  hourlyRow: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    backgroundColor: 'rgba(255,255,255,0.3)',
+    borderRadius: '14px',
+    padding: '10px 8px',
+    marginBottom: '16px',
+  },
+  hourlyItem: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    gap: '2px',
+    flex: 1,
+  },
+  hourlyTime: {
+    fontSize: '11px',
+    color: '#4a6580',
+    fontWeight: '500',
+  },
+  hourlyTemp: {
+    fontSize: '13px',
+    fontWeight: '600',
+    color: '#1a2e42',
+  },
+  forecastSection: {
+    backgroundColor: 'rgba(255,255,255,0.45)',
+    borderRadius: '18px',
+    padding: '14px',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '2px',
+  },
+  forecastHeader: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'baseline',
+    marginBottom: '10px',
+  },
+  forecastTitle: {
+    fontSize: '15px',
+    fontWeight: '700',
+    color: '#1a2e42',
+  },
+  forecastSubtitle: {
+    fontSize: '11px',
+    color: '#4a6580',
+  },
+  forecastRow: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '8px',
+    padding: '8px 10px',
+    borderRadius: '12px',
+    backgroundColor: 'rgba(255,255,255,0.5)',
+    marginBottom: '4px',
+    flexWrap: 'wrap',
+  },
+  forecastDay: {
+    fontSize: '14px',
+    fontWeight: '600',
+    color: '#1a2e42',
+    width: '70px',
+    flexShrink: 0,
+  },
+  rainChance: {
+    fontSize: '12px',
+    color: '#4a90d9',
+    width: '45px',
+    flexShrink: 0,
+  },
+  forecastTemps: {
+    fontSize: '14px',
+    fontWeight: '600',
+    color: '#1a2e42',
+    flexShrink: 0,
+  },
+  pollenRow: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '4px',
+    width: '100%',
+    paddingLeft: '4px',
+    marginTop: '2px',
+  },
+  pollenIcon: {
+    fontSize: '12px',
+    color: '#4a6580',
+  },
+  pollenScore: {
+    fontSize: '12px',
+    fontWeight: '600',
+    color: '#4a6580',
+  },
+  pollenBadge: {
+    fontSize: '10px',
+    fontWeight: '700',
+    color: '#ffffff',
+    padding: '2px 8px',
+    borderRadius: '20px',
+  },
+};
