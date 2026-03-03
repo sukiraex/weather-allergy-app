@@ -1,5 +1,7 @@
 import { useWeather } from './hooks/useWeather';
 import { usePollen } from './hooks/usePollen';
+import { COLOURS } from "../theme/colours";
+
 
 const CITY = 'Nottingham';
 
@@ -8,12 +10,12 @@ function App() {
   const { overall, types, trendLabel, daily: pollenDaily, loading: pollenLoading, error: pollenError } = usePollen(CITY);
 
   return (
-    <div style={{ padding: '20px', fontFamily: 'monospace' }}>
-      <h1>API Test</h1>
+    <div style={{ padding: '20px', fontFamily: 'monospace', backgroundColor: COLOURS.LIGHT_GREY }}>
+      <h1 style={{ color: COLOURS.BLUE }}>API Test</h1>
 
-      <h2>Weather</h2>
+      <h2 style={{ color: COLOURS.DARK_GREY }}>Weather</h2>
       {weatherLoading && <p>Loading weather...</p>}
-      {weatherError && <p style={{ color: 'red' }}>ERROR: {weatherError}</p>}
+      {weatherError && <p style={{ color: COLOURS.RED }}>ERROR: {weatherError}</p>}
       {current && (
         <div>
           <p>Temperature: {current.temperature}C</p>
@@ -41,7 +43,7 @@ function App() {
 
       <h2>Pollen</h2>
       {pollenLoading && <p>Loading pollen...</p>}
-      {pollenError && <p style={{ color: 'red' }}>ERROR: {pollenError}</p>}
+      {pollenError && <p style={{ color: COLOURS.RED }}>ERROR: {pollenError}</p>}
       {overall && (
         <div>
           <p>Overall Score: {overall.score} - {overall.label}</p>
