@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react';
 import {
   fetchCurrentWeather,
-  fetchForecast,
-  fetchUVIndex,
+  fetchForecast
 } from '../api/weatherapi';
 import { getCityCoordinates } from '../api/pollenapi';
 
@@ -68,19 +67,21 @@ export const useWeather = (city) => {
       setError(null);
 
       try {
-        // Fetch current weather and forecast in parallel
         const [currentData, forecastData] = await Promise.all([
           fetchCurrentWeather(city),
           fetchForecast(city),
         ]);
 
-        // Fetch UV index using coordinates from current weather
+        // Fetch UV from Open-Meteo, from OpenWeather I think you need to pay
         const coords = await getCityCoordinates(city);
-        const uv = await fetchUVIndex(coords.lat, coords.lon);
+        const uvResponse = await fetch(
+          `https://api.open-meteo.com/v1/forecast?latitude=${coords.lat}&longitude=${coords.lon}&current=uv_index`
+        );
+        const uvData = await uvResponse.json();
+        const uv = uvData?.current?.uv_index ?? null;
 
-        const weatherWithUV = { ...currentData, uvIndex: uv };
+        const weatherWithUV = { ...currentData, uvIndex: uv !== null ? Math.round(uv) : null };
 
-        // Format sunset time as HH:MM
         const sunsetDate = new Date(currentData.sunset * 1000);
         const formattedSunset = sunsetDate.toLocaleTimeString('en-GB', {
           hour: '2-digit',

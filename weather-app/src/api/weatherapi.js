@@ -92,24 +92,3 @@ export const fetchForecast = async (city) => {
   }
 };
 
-// UV Index — requires lat/lon, get those from current weather first
-export const fetchUVIndex = async (lat, lon) => {
-  try {
-    const response = await axios.get(
-      `https://api.openweathermap.org/data/3.0/onecall`,
-      {
-        params: {
-          lat,
-          lon,
-          exclude: 'minutely,hourly,daily,alerts',
-          appid: API_KEY,
-        },
-      }
-    );
-
-    return response.data.current.uvi;
-  } catch (error) {
-    console.error('Error fetching UV index:', error);
-    return null; // non-critical, fail silently
-  }
-};

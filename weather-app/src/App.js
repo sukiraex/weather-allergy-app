@@ -1,7 +1,7 @@
 import { useWeather } from './hooks/useWeather';
 import { usePollen } from './hooks/usePollen';
 
-const CITY = 'London';
+const CITY = 'Nottingham';
 
 function App() {
   const { current, hourly, daily, sunset, loading: weatherLoading, error: weatherError } = useWeather(CITY);
