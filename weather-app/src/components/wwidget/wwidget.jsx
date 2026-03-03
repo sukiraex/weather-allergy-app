@@ -129,7 +129,7 @@ export default function WeatherCard({ city = 'London' }) {
 
 const styles = {
   card: {
-    backgroundColor: '#deeaf5',
+    backgroundColor: '#dce8f0',
     borderRadius: '24px',
     padding: '20px',
     width: '340px',
@@ -146,6 +146,15 @@ const styles = {
     display: 'flex',
     flexDirection: 'column',
     gap: '4px',
+  },
+  iconCircle: {
+    width: '72px',
+    height: '72px',
+    borderRadius: '50%',
+    backgroundColor: '#4a8db5',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   temperature: {
     fontSize: '56px',
@@ -169,9 +178,7 @@ const styles = {
   hourlyRow: {
     display: 'flex',
     justifyContent: 'space-between',
-    backgroundColor: 'rgba(255,255,255,0.3)',
-    borderRadius: '14px',
-    padding: '10px 8px',
+    padding: '10px 0px',
     marginBottom: '16px',
   },
   hourlyItem: {
@@ -192,7 +199,7 @@ const styles = {
     color: '#1a2e42',
   },
   forecastSection: {
-    backgroundColor: 'rgba(255,255,255,0.45)',
+    backgroundColor: '#5a8fab',
     borderRadius: '18px',
     padding: '14px',
     display: 'flex',
@@ -201,47 +208,52 @@ const styles = {
   },
   forecastHeader: {
     display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'baseline',
+    flexDirection: 'column',
     marginBottom: '10px',
   },
   forecastTitle: {
     fontSize: '15px',
     fontWeight: '700',
-    color: '#1a2e42',
+    color: '#ffffff',
   },
   forecastSubtitle: {
     fontSize: '11px',
-    color: '#4a6580',
+    color: 'rgba(255,255,255,0.7)',
+    marginTop: '2px',
   },
   forecastRow: {
     display: 'flex',
     alignItems: 'center',
     gap: '8px',
-    padding: '8px 10px',
-    borderRadius: '12px',
-    backgroundColor: 'rgba(255,255,255,0.5)',
-    marginBottom: '4px',
+    padding: '10px 12px',
+    borderRadius: '14px',
+    backgroundColor: 'rgba(255,255,255,0.15)',
+    marginBottom: '6px',
     flexWrap: 'wrap',
   },
   forecastDay: {
     fontSize: '14px',
     fontWeight: '600',
-    color: '#1a2e42',
+    color: '#ffffff',
     width: '70px',
     flexShrink: 0,
   },
   rainChance: {
     fontSize: '12px',
-    color: '#4a90d9',
+    color: 'rgba(255,255,255,0.85)',
     width: '45px',
     flexShrink: 0,
   },
   forecastTemps: {
     fontSize: '14px',
-    fontWeight: '600',
-    color: '#1a2e42',
+    fontWeight: '700',
+    color: '#ffffff',
     flexShrink: 0,
+    marginLeft: 'auto',
+  },
+  forecastLow: {
+    color: 'rgba(255,255,255,0.6)',
+    fontWeight: '400',
   },
   pollenRow: {
     display: 'flex',
@@ -253,12 +265,12 @@ const styles = {
   },
   pollenIcon: {
     fontSize: '12px',
-    color: '#4a6580',
+    color: 'rgba(255,255,255,0.7)',
   },
   pollenScore: {
     fontSize: '12px',
     fontWeight: '600',
-    color: '#4a6580',
+    color: 'rgba(255,255,255,0.9)',
   },
   pollenBadge: {
     fontSize: '10px',
