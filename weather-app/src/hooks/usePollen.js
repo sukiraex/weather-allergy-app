@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { fetchPollenData } from '../api/pollenApi';
+import { fetchPollenData } from '../api/pollenapi';
 
 // ─── usePollen ─────────────────────────────────────────────────────────────────
 // Returns all pollen data needed across the app.

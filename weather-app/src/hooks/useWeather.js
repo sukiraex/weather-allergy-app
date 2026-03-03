@@ -3,8 +3,8 @@ import {
   fetchCurrentWeather,
   fetchForecast,
   fetchUVIndex,
-} from '../api/weatherApi';
-import { getCityCoordinates } from '../api/pollenApi';
+} from '../api/weatherapi';
+import { getCityCoordinates } from '../api/pollenapi';
 
 // ─── useWeather ────────────────────────────────────────────────────────────────
 // Returns all weather data needed across the app.
