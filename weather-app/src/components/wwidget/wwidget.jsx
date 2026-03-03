@@ -1,7 +1,7 @@
 // src/components/ForecastWidget.jsx (for example)
 import React from 'react';
-import { useWeather } from '../hooks/useWeather';  // <- src/hooks/useWeather
-import 'wwdiget.css';
+import { useWeather } from '../../hooks/useWeather';
+import './wwidget.css';
 
 /* ...rest of ForecastWidget component I sent earlier stays the same... */
 
