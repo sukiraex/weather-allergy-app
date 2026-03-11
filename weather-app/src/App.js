@@ -1,6 +1,6 @@
 import { useWeather } from './hooks/useWeather';
 import { usePollen } from './hooks/usePollen';
-import { COLOURS } from "../theme/colours";
+import { COLOURS } from "./theme/colours";
 
 
 const CITY = 'Nottingham';
