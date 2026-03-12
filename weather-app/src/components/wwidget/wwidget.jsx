@@ -1,19 +1,19 @@
 import { useWeather } from '../../hooks/useWeather';
 import { usePollen } from '../../hooks/usePollen';
 
-// Hardcoded colours — replace with var(--variable) once theme file is ready
+// Colours for weather widget
 const colors = {
-  cardBg: '#deeaf5',
-  forecastRowBg: 'rgba(255,255,255,0.5)',
+  cardBg: '#EFF6FF',
+  forecastRowBg: '#7AADC5',
   textPrimary: '#1a2e42',
   textSecondary: '#4a6580',
   textMuted: '#7a95aa',
   white: '#ffffff',
-  rainBlue: '#4a90d9',
-  pollenLow: '#22c55e',
-  pollenMedium: '#f97316',
-  pollenHigh: '#ef4444',
-  pollenVeryHigh: '#dc2626',
+  rainBlue: '#49A0C9',
+  pollenLow: '#59C08D',
+  pollenMedium: '#CFBC73',
+  pollenHigh: '#DF9746',
+  pollenVeryHigh: '#D96B6E',
 };
 
 const getPollenColor = (label) => {
@@ -151,7 +151,7 @@ const styles = {
     width: '72px',
     height: '72px',
     borderRadius: '50%',
-    backgroundColor: '#4a8db5',
+    backgroundColor: '#7AADC5',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -166,13 +166,13 @@ const styles = {
   condition: {
     fontSize: '18px',
     fontWeight: '500',
-    color: '#1a2e42',
+    color: '#4c7095',
     textTransform: 'capitalize',
     marginTop: '4px',
   },
   hiLow: {
     fontSize: '13px',
-    color: '#4a6580',
+    color: '#88a3bd',
     marginTop: '2px',
   },
   hourlyRow: {
@@ -190,7 +190,7 @@ const styles = {
   },
   hourlyTime: {
     fontSize: '11px',
-    color: '#4a6580',
+    color: '#7AADC5',
     fontWeight: '500',
   },
   hourlyTemp: {
@@ -199,11 +199,11 @@ const styles = {
     color: '#1a2e42',
   },
   forecastSection: {
-    backgroundColor: '#5a8fab',
+    backgroundColor: '#7AADC5',
     borderRadius: '18px',
     padding: '14px',
     display: 'flex',
-    flexDirection: 'column',
+    flexDirection: 'column', 
     gap: '2px',
   },
   forecastHeader: {
