@@ -1,18 +1,117 @@
+import { useState, useEffect } from 'react'; 
 import { useWeather } from './hooks/useWeather';
 import { usePollen } from './hooks/usePollen';
 import { COLOURS } from "./theme/colours";
-
-
-const CITY = 'Nottingham';
+import { useLocation } from "./hooks/useLocation";
 
 function App() {
-  const { current, hourly, daily, sunset, loading: weatherLoading, error: weatherError } = useWeather(CITY);
-  const { overall, types, trendLabel, daily: pollenDaily, loading: pollenLoading, error: pollenError } = usePollen(CITY);
+
+  const [city, setCity] = useState('');
+  const [locationConfirmed, setLocationConfirmed] = useState(false);
+
+  const {
+    location,
+    displayCity,
+    locationError,
+    useManual,
+    setUseManual,
+    setLocation,
+    setDisplayCity,
+    setLocationError
+  } = useLocation(setLocationConfirmed);
+
+  // Weather + pollen hooks
+  const weather = useWeather(location ? null : city, location);
+  const pollen  = usePollen(location ? null : city, location);
+
+  const {
+    current,
+    hourly,
+    daily,
+    sunset,
+    loading: weatherLoading,
+    error: weatherError
+  } = weather;
+
+  const {
+    overall,
+    types,
+    trendLabel,
+    daily: pollenDaily,
+    loading: pollenLoading,
+    error: pollenError
+  } = pollen;
+
+  // manual city submit handler
+  const handleCitySubmit = (e) => {
+    e.preventDefault();
+
+    if (city.trim() === '') {
+      setLocationError('Please enter a city name.');
+      return;
+    }
+
+    setLocation(null);
+    setDisplayCity(city);
+    setLocationError(null);
+    setLocationConfirmed(true);
+  };
+
 
   return (
     <div style={{ padding: '20px', fontFamily: 'monospace', backgroundColor: COLOURS.LIGHT_GREY }}>
       <h1 style={{ color: COLOURS.BLUE }}>API Test</h1>
 
+    {/* location input */}
+    <div className="location-container">
+
+      {locationConfirmed ? (
+        <div className="location-confirmed">
+
+          <p className="location-text">📍 {displayCity}</p>
+
+          <button
+            className="edit-location-button"
+            onClick={() => {
+              setLocationConfirmed(false);
+              setUseManual(true);
+            }}
+          >
+            Edit
+          </button>
+
+        </div>
+      ) : (
+        <>
+          <p className="location-message">
+            {locationError || "Detecting your location..."}
+          </p>
+
+          {useManual && (
+            <form onSubmit={handleCitySubmit} className="location-form">
+
+              <input
+                type="text"
+                value={city}
+                onChange={(e) => setCity(e.target.value)}
+                placeholder="Search city..."
+                className="location-input"
+              />
+
+              <button type="submit" className="location-button">
+                Search
+              </button>
+
+            </form>
+          )}
+        </>
+      )}
+
+    </div>
+
+
+
+      {/* Weather Section */}
       <h2 style={{ color: COLOURS.DARK_GREY }}>Weather</h2>
       {weatherLoading && <p>Loading weather...</p>}
       {weatherError && <p style={{ color: COLOURS.RED }}>ERROR: {weatherError}</p>}
