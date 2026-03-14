@@ -4,8 +4,13 @@ import { usePollen } from './hooks/usePollen';
 import { COLOURS } from "./theme/colours";
 import { useLocation } from "./hooks/useLocation";
 
-function App() {
+import WeatherCard from './components/wwidget/wwidget';
+import WindWidget from './components/wwidget/widgets/WindWidget';
+import HumidityWidget from './components/wwidget/widgets/HumidityWidget';
+import UVWidget from './components/wwidget/widgets/UVWidget';
+import SunsetWidget from './components/wwidget/widgets/SunsetWidget';
 
+function App() {
   const [city, setCity] = useState('');
   const [locationConfirmed, setLocationConfirmed] = useState(false);
 
@@ -109,6 +114,14 @@ function App() {
 
     </div>
 
+      {/* Fancy widgets */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '20px', marginBottom: '40px' }}>
+        <WeatherCard city={displayCity || "London"} />
+        <SunsetWidget />
+        <WindWidget />
+        <HumidityWidget />
+        <UVWidget />
+      </div>
 
 
       {/* Weather Section */}
