@@ -1,4 +1,4 @@
-import { useWeather } from "../../hooks/useWeather";
+import { useWeather } from "../../../hooks/useWeather";
 
 export default function WindWidget({ city = "London" }) {
   const { current, loading, error } = useWeather(city);
