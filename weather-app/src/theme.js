@@ -5,9 +5,12 @@ export const theme = {
         border: 'none',
         cursor: 'pointer',
         fontFamily: "'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif",
+        color: '#FFFF'
         
 
     }, 
+
+  
 
     card: {
         backgroundColor: '#dce8f0',
@@ -23,6 +26,7 @@ export const theme = {
         Medium: '#CFBC73',
         High: '#DF9746',
         VeryHigh: '#D96B6E',
+        Muted: '#7a95aa'
       }
     
   };
