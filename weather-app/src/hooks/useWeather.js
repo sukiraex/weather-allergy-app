@@ -51,7 +51,7 @@ import { getCityCoordinates } from '../api/pollenapi';
 // loading: boolean
 // error: string | null
 
-export const useWeather = (city) => {
+export const useWeather = (locationInput) => {
   const [current, setCurrent] = useState(null);
   const [hourly, setHourly] = useState([]);
   const [daily, setDaily] = useState([]);
@@ -59,28 +59,49 @@ export const useWeather = (city) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    if (!city) return;
+useEffect(() => {
+    if (!locationInput) {
+      setLoading(false);
+      return;
+    }
 
     const fetchAll = async () => {
       setLoading(true);
       setError(null);
 
       try {
-        const [currentData, forecastData] = await Promise.all([
-          fetchCurrentWeather(city),
-          fetchForecast(city),
-        ]);
+        let coords;
+        let currentData, forecastData;
 
-        // Fetch UV from Open-Meteo, from OpenWeather I think you need to pay
-        const coords = await getCityCoordinates(city);
+        // Handle city string vs coords object
+        if (typeof locationInput === 'object' && locationInput.lat && locationInput.lon) {
+          coords = locationInput;
+          [currentData, forecastData] = await Promise.all([
+            fetchCurrentWeather(coords),
+            fetchForecast(coords),
+          ]);
+        } else if (typeof locationInput === 'string' && locationInput.trim()) {
+          [currentData, forecastData] = await Promise.all([
+            fetchCurrentWeather(locationInput),
+            fetchForecast(locationInput),
+          ]);
+          coords = await getCityCoordinates(locationInput);  // still needed for UV
+        } else {
+          throw new Error('Invalid location input');
+        }
+
+        // UV from Open-Meteo (requires coords)
         const uvResponse = await fetch(
           `https://api.open-meteo.com/v1/forecast?latitude=${coords.lat}&longitude=${coords.lon}&current=uv_index`
         );
+        if (!uvResponse.ok) throw new Error('UV fetch failed');
         const uvData = await uvResponse.json();
         const uv = uvData?.current?.uv_index ?? null;
 
-        const weatherWithUV = { ...currentData, uvIndex: uv !== null ? Math.round(uv) : null };
+        const weatherWithUV = {
+          ...currentData,
+          uvIndex: uv !== null ? Math.round(uv) : null,
+        };
 
         const sunsetDate = new Date(currentData.sunset * 1000);
         const formattedSunset = sunsetDate.toLocaleTimeString('en-GB', {
@@ -102,7 +123,7 @@ export const useWeather = (city) => {
     };
 
     fetchAll();
-  }, [city]);
+  }, [locationInput]);  // Re-run when input changes
 
   return { current, hourly, daily, sunset, loading, error };
 };
