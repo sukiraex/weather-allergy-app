@@ -1,8 +1,11 @@
 import { useWeather } from "../../hooks/useWeather";
 import { usePollen } from "../../hooks/usePollen";
 import { theme } from "../../theme";
+import trackericon from './icons/trackericon.png';
+import emptycheck from './icons/emptycheck.png';
+import tickedcheck from './icons/tickedcheck.png';
 
-const getPollenLevel = (label) => {
+const getPollenColor = (label) => {
     switch (label) {
       case 'Low': return theme.warningcolours.Low;
       case 'Medium': return theme.warningcolours.Low;
@@ -16,13 +19,25 @@ export default function SymptomTracker ({city = 'London'}) {
     const { current, hourly, daily, loading: wLoading, error: wError } = useWeather(city);
     const { daily: pollenDaily, loading: pLoading } = usePollen(city);
     return (
-        <><div style={{...theme.card, width: '380px', textAlign: 'center'}}>
-            <span>
-            <h3 style={{textAlign: 'left'}}>Symptom Tracker</h3>
-            <img src={"weather-allergy-app/weather-app/src/components/wwidget/icons/trackericon.svg"}/>
+        <><div style={{...theme.card, width: '375px', height: '380px' , textAlign: 'center', flexDirection: 'column'}}>
+          
+           <div style={{display: 'flex', justifyContent: 'space-between'}}>
+           <h3 style={{margin: 0, textAlign: 'left', float: 'left'}}>Symptom Tracker</h3>
+           <img src={trackericon}/>
+           </div>
+
+           <div>
+            <img src={emptycheck}/>
+            <span style={{}}>
+
             </span>
+
+           </div>
+
+        
             
-            <button style={{...theme.buttons, background: theme.buttons.buttongradient, width:'339px', height: '40px', borderRadius: '14px'}}>Log Symptoms</button>
+            
+            <button style={{...theme.buttons, background: theme.buttons.buttongradient, width:'375px', height: '40px', borderRadius: '14px'}}>Log Symptoms</button>
 
         </div>
         </>
