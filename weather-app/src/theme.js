@@ -5,7 +5,8 @@ export const theme = {
         border: 'none',
         cursor: 'pointer',
         fontFamily: "'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif",
-        color: '#FFFF'
+        color: '#FFFF',
+        boxShadow: '0 4px 24px rgba(0,0,0,0.08)'
         
 
     }, 
