@@ -14,12 +14,12 @@ function App() {
         display: 'flex',
         gap: '28px',
         alignItems: 'flex-start',
-        position: 'relative'   // ⭐ 추가
+        position: 'relative'   
       }}
     >
       <WeatherCard city="London" />
 
-      {/* 오른쪽 아래 위젯 영역 */}
+      {/* low right side */}
       <div
         style={{
           position: "absolute",
