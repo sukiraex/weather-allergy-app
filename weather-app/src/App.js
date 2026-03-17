@@ -5,10 +5,10 @@ import { COLOURS } from "./theme/colours";
 import { useLocation } from "./hooks/useLocation";
 
 import WeatherCard from './components/wwidget/wwidget';
-import WindWidget from './components/wwidget/widgets/WindWidget';
-import HumidityWidget from './components/wwidget/widgets/HumidityWidget';
-import UVWidget from './components/wwidget/widgets/UVWidget';
-import SunsetWidget from './components/wwidget/widgets/SunsetWidget';
+import WindWidget from './components/widgets/WindWidget';
+import HumidityWidget from './components/widgets/HumidityWidget';
+import UVWidget from './components/widgets/UVWidget';
+import SunsetWidget from './components/widgets/SunsetWidget';
 
 function App() {
   const [city, setCity] = useState('');
