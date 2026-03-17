@@ -117,10 +117,10 @@ function App() {
       {/* Fancy widgets */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '20px', marginBottom: '40px' }}>
         <WeatherCard city={displayCity || "London"} />
-        <SunsetWidget />
-        <WindWidget />
-        <HumidityWidget />
-        <UVWidget />
+        <SunsetWidget city={displayCity || "London"} />
+        <WindWidget city={displayCity || "London"} />
+        <HumidityWidget city={displayCity || "London"} />
+        <UVWidget city={displayCity || "London"} />
       </div>
 
 
