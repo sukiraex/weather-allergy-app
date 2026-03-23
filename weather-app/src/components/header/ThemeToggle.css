@@ -1,0 +1,82 @@
+/* css for the theme toggle widget */
+
+/* the widget bar that holds everything */
+.theme-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  background: var(--bg-location);
+  flex-wrap: wrap;
+  font-family: monospace;
+}
+
+/* light/dark toggle button */
+.theme-mode-btn {
+  padding: 7px 14px;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  background: var(--accent);
+  color: #fff;
+  transition: background 0.2s;
+}
+.theme-mode-btn:hover {
+  background: var(--accent-hover);
+}
+
+/* divider line between sections */
+.theme-divider {
+  width: 1px;
+  height: 24px;
+  background: var(--border);
+}
+
+/* "Background" label text */
+.theme-label {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+/* coloured circle which opens the colour wheel */
+.theme-changer {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 2px solid var(--border);
+  cursor: pointer;
+  display: block;
+  transition: transform 0.15s;
+}
+.theme-changer:hover {
+  transform: scale(1.15);
+}
+
+/* the actual input colour which is hidden inside the label above */
+.theme-colour-input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+/* reset button */
+.theme-reset-btn {
+  padding: 5px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: 12px;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+.theme-reset-btn:hover {
+  background: var(--accent);
+  color: #fff;
+}
