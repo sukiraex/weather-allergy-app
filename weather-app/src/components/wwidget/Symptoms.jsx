@@ -1,4 +1,3 @@
-import { useWeather } from "../../hooks/useWeather";
 import { usePollen } from "../../hooks/usePollen";
 import { theme } from "../../theme";
 import trackericon from './icons/trackericon.svg';
