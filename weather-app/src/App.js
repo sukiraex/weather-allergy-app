@@ -10,7 +10,9 @@ function App() {
       <SymptomTracker city="London"/>
  
       </div>
-   
+      <div>
+        <LogSymptoms />
+      </div>
      
     </div></>
 
