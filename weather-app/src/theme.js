@@ -28,6 +28,46 @@ export const theme = {
         High: '#DF9746',
         VeryHigh: '#D96B6E',
         Muted: '#7a95aa'
-      }
-    
-  };
+      },
+
+     
+      container: {
+        cursor: 'pointer',
+        fontSize: '14px',
+        WebkitUserSelect: 'none',
+        MozUserSelect: 'none',
+        msUserSelect: 'none',
+        userSelect: 'none',
+        display: 'flex',
+        alignItems: 'center',
+        gap: '10px',
+        position: 'relative',
+      },
+      input: {
+        position: 'absolute',
+        opacity: 0,
+        cursor: 'pointer',
+        height: 0,
+        width: 0,
+      },
+      checkmark: {
+        width: '15px',
+        height: '15px',
+        borderRadius: '50%',             
+        border: '1px solid #D0D5DD',    
+        backgroundColor: 'transparent',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexShrink: 0,
+      },
+      checkmarkChecked: {
+        backgroundColor: 'transparent',  
+        border: '1px solid #3B82F6',
+      },
+      checkmarkIcon: {
+        width: '8px',
+        height: '8px',
+        color: '#3B82F6',                // Blue checkmark
+      },
+        }
