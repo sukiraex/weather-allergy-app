@@ -1,3 +1,5 @@
+import PollenCard from "./components/PollenCard";
+import MedicationReminder from "./components/MedicationReminder";
 import { useState, useEffect } from 'react'; 
 import { useWeather } from './hooks/useWeather';
 import { usePollen } from './hooks/usePollen';
@@ -8,7 +10,7 @@ import WeatherCard from './components/wwidget/wwidget';
 import WindWidget from './components/widgets/WindWidget';
 import HumidityWidget from './components/widgets/HumidityWidget';
 import UVWidget from './components/widgets/UVWidget';
-import SunsetWidget from './components/widgets/SunsetWidget';
+import SunsetWidget from './components/widgets/SunsetWidget'; 
 
 function App() {
   const [city, setCity] = useState('');
@@ -121,6 +123,15 @@ function App() {
         <WindWidget city={displayCity || "London"} />
         <HumidityWidget city={displayCity || "London"} />
         <UVWidget city={displayCity || "London"} />
+        {/*Habibas components */}
+        <PollenCard
+          data={{
+            overall,
+            types,
+            trendLabel
+          }}
+        />
+        <MedicationReminder />
       </div>
 
 
@@ -170,7 +181,8 @@ function App() {
       {pollenDaily.map((d, i) => (
         <p key={i}>{d.day} - Score: {d.score} - {d.label}</p>
       ))}
-    </div>
+    </div> 
+
   );
 }
 
