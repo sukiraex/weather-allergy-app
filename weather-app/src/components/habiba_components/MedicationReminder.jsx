@@ -59,10 +59,7 @@ function MedicationReminder() {
 
       {/* header */}
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-        
         <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-          
-          {/* pill icon */}
           <div style={{
             width: "34px",
             height: "34px",
@@ -70,17 +67,15 @@ function MedicationReminder() {
             background: "#ffb347",
             display: "flex",
             alignItems: "center",
-            justifyContent: "center",
-            fontSize: "16px"
+            justifyContent: "center"
           }}>
             💊
           </div>
-
           <h3 style={{ margin: 0, fontSize: "16px" }}>Medication</h3>
         </div>
 
         <button
-          onClick={() => setShowForm(!showForm)}
+          onClick={() => setShowForm(true)}
           style={{
             background: "#ff7a18",
             border: "none",
@@ -89,15 +84,14 @@ function MedicationReminder() {
             height: "34px",
             color: "white",
             fontSize: "18px",
-            cursor: "pointer",
-            boxShadow: "0 3px 8px rgba(0,0,0,0.2)"
+            cursor: "pointer"
           }}
         >
           +
         </button>
       </div>
 
-      {/* progress bar */}
+      {/* progress */}
       <p style={{ fontSize: "12px", margin: "6px 0", opacity: 0.8 }}>
         {takenCount}/{meds.length} taken today
       </p>
@@ -112,8 +106,7 @@ function MedicationReminder() {
         <div style={{
           width: `${progress}%`,
           background: "linear-gradient(90deg, #ff7a18, #ffb347)",
-          height: "100%",
-          borderRadius: "10px"
+          height: "100%"
         }} />
       </div>
 
@@ -127,48 +120,35 @@ function MedicationReminder() {
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
-          opacity: m.taken ? 0.6 : 1,
-          boxShadow: "inset 0 1px 2px rgba(0,0,0,0.05)"
+          opacity: m.taken ? 0.6 : 1
         }}>
-
           <div>
-            <p style={{ margin: 0, fontWeight: "500" }}>{m.name}</p>
+            <p style={{ margin: 0 }}>{m.name}</p>
             <span style={{ fontSize: "12px", opacity: 0.7 }}>{m.dose}</span>
           </div>
 
           <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-
             <span style={{ fontSize: "12px", opacity: 0.7 }}>
               🕒 {formatTime(m.time)}
             </span>
 
-            <button
-              onClick={() => removeMed(m.id)}
-              style={{
-                border: "none",
-                background: "transparent",
-                color: "#888",
-                fontSize: "14px",
-                cursor: "pointer"
-              }}
-            >
+            <button onClick={() => removeMed(m.id)} style={{
+              border: "none",
+              background: "transparent",
+              cursor: "pointer"
+            }}>
               ✕
             </button>
 
-            <button
-              onClick={() => toggleTaken(m.id)}
-              style={{
-                width: "20px",
-                height: "20px",
-                borderRadius: "50%",
-                border: "2px solid #666",
-                background: m.taken ? "#4caf50" : "transparent",
-                cursor: "pointer"
-              }}
-            />
-
+            <button onClick={() => toggleTaken(m.id)} style={{
+              width: "20px",
+              height: "20px",
+              borderRadius: "50%",
+              border: "2px solid #666",
+              background: m.taken ? "#4caf50" : "transparent",
+              cursor: "pointer"
+            }} />
           </div>
-
         </div>
       ))}
 
@@ -178,174 +158,148 @@ function MedicationReminder() {
           background: "#f5e6d8",
           padding: "12px",
           borderRadius: "14px",
-          marginTop: "10px",
-          display: "flex",
-          flexDirection: "column",
-          gap: "3px"
+          marginTop: "10px"
         }}>
-          <p style={{ margin: 0, fontSize: "12px", display: "flex", alignItems: "center", gap: "6px" }}>
-            🔔 Next Dose
-          </p>
+          <p style={{ margin: 0, fontSize: "12px" }}>🔔 Next Dose</p>
           <p style={{ margin: 0 }}>
             {nextDose.name} at {formatTime(nextDose.time)}
           </p>
         </div>
       )}
 
-      {/* add medicine */}
+      {/* modal */}
       {showForm && (
         <div style={{
-            position: 'fixed',
-            top: 0,
-            left: 0,
-            width: "100%",
-            height: "100vh",
-            background: "rgba(0,0,0,0.4)",
-            display: "flex",
-            justifyContent: "center",
-            gap: '12px',
-            alignItems: "center",
-            zIndex: 999
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100vh",
+          background: "rgba(0,0,0,0.4)",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          zIndex: 999
         }}>
           <div style={{
             background: '#f3f4f6',
             borderRadius: '20px',
-            width: '420px',
-            maxWidth: '90vw',
-            minHeight: '600px',
-            maxHeight: '85vh',
+            width: '100%',
+            maxWidth: '420px',
+            maxHeight: '90vh',
             display: 'flex',
             flexDirection: 'column',
-            overflow: 'hidden',
-            boxShadow: '0 15px 40px rgba(0,0,0,0.2)'
+            overflow: 'hidden'
           }}>
-            {/*header*/}
+
+            {/* header */}
             <div style={{
               background: "linear-gradient(135deg, #ff7a18, #ff4da6)",
               padding: "16px",
               color: "white",
               display: "flex",
-              justifyContent: "centre",
-              gap: '12px',
               alignItems: "center"
             }}>
-              <div>
+              <div style={{ flex: 1 }}>
                 <h3 style={{ margin: 0 }}>Add Medication</h3>
-                <p style={{ 
-                  margin: '0 0 8px 0',
-                  fontSize: '12px', 
-                  fontWeight: '600',
-                  color: '#1f2937'
-                }}>
-                    Set up a reminder
+                <p style={{ margin: 0, fontSize: '13px', opacity: 0.85 }}>
+                  Set up a reminder
                 </p>
               </div>
 
-              <button
-                onClick={() => setShowForm(false)}
-                style={{
-                    background: 'transparent',
-                    border: 'none',
-                    color: 'white',
-                    fontSize: '18px',
-                    cursor: 'pointer'
-                }}
-              >
+              <button onClick={() => setShowForm(false)} style={{
+                background: 'transparent',
+                border: 'none',
+                color: 'white',
+                fontSize: '18px',
+                cursor: 'pointer'
+              }}>
                 ✕
               </button>
             </div>
 
-            {/*inputs*/}
+            {/* content */}
             <div style={{
-               padding: '20px',
-               display: "flex", 
-               flexDirection: "column", 
-               gap: "20px",
-               flex: 1,
-               overflowY: 'auto' 
+              padding: '20px',
+              display: "flex",
+              flexDirection: "column",
+              gap: "18px",
+              flex: 1,
+              overflowY: 'auto'
             }}>
-              <input
-                placeholder="e.g., Cetirizine, Nasal Spray"
-                value={name}
-                onChange={e => setName(e.target.value)}
-                style={{
-                  width: '100%',
-                  padding: '14px',
-                  borderRadius: '14px',
-                  border: "none",
-                  background: '#dbe3ec',
-                  outline: 'none',
-                  fontSize: '14px'
-                }}
-             />
+              <label style={{ fontSize: "13px", opacity: 0.8 }}>Medication Name</label>
+              <input value={name} onChange={e => setName(e.target.value)} placeholder="e.g., Cetirizine, Nasal Spray"
+                style={{ padding: '14px', borderRadius: '14px', border: "none", background: '#dbe3ec' }} />
 
-             <input 
-               placeholder="Dosage"
-               value={dose}
-               onChange={e => setDose(e.target.value)}
-                style={{
-                  width: '100%',
-                  padding: '14px',
-                  borderRadius: '14px',
-                  border: "none",
-                  background: '#dbe3ec',
-                  outline: 'none',
-                  fontSize: '14px'
-                }}
-             />
+              <label style={{ fontSize: "13px", opacity: 0.8 }}>Dosage</label>
+              <input value={dose} onChange={e => setDose(e.target.value)} placeholder="e.g., 10mg, 2 sprays, 1 drop"
+                style={{ padding: '14px', borderRadius: '14px', border: "none", background: '#dbe3ec' }} />
 
-             <input
-               type="time"
-               value={time}
-               onChange={e => setTime(e.target.value)}
-                style={{
-                  width: '100%',
-                  padding: '14px',
-                  borderRadius: '14px',
-                  border: "none",
-                  background: '#dbe3ec',
-                  outline: 'none',
-                  fontSize: '14px'
-                }}
-             />
-             </div>
+              <label style={{ fontSize: "13px", opacity: 0.8 }}>Time</label>
+              <input type="time" value={time} onChange={e => setTime(e.target.value)}
+                style={{ padding: '14px', borderRadius: '14px', border: "none", background: '#dbe3ec' }} />
 
-             {/*buttons*/}
-             <div style={{ display: "flex", justifyContent: "center", marginTop: "20px" }}>
-               <button
-                 onClick={() => setShowForm(false)}
-                 style={{
-                    padding: '12px 18px',
-                    borderRadius: '14px',
-                    border: "none",
-                    background: '#e5e7eb',
-                    cursor: 'pointer',
-                    minWidth: '120px'
-                 }}
-               >
-                 Cancel
-               </button>
+              <div>
+                <p style={{ fontSize: '13px', marginBottom: '10px' }}>
+                  Common Allergy Medications
+                </p>
 
-               <button
-                 onClick={addMed}
-                 style={{
-                    padding: '12px 18px',
-                    borderRadius: '14px',
-                    border: "none",
-                    background: 'linear-gradient(90deg, #ff7a18, #ffb347)',
-                    color: 'white',
-                    cursor: 'pointer',
-                    minWidth: '140px',
-                    boxShadow: '0 6px 15px rgba(255,122,24,0.4)'
-                 }}
-               >
-                 Add Medication 
-               </button>
-             </div>
+                <div style={{
+                  display: 'grid',
+                  gridTemplateColumns: '1fr 1fr',
+                  gap: '10px'
+                }}>
+                  {["Cetirizine", "Loratadine", "Nasal Spray", "Eye Drops"].map(item => (
+                    <button
+                      key={item}
+                      onClick={() => setName(item)}
+                      style={{
+                        padding: '10px',
+                        borderRadius: '12px',
+                        border: 'none',
+                        background: '#dbe3ec',
+                        cursor: 'pointer'
+                      }}
+                    >
+                      {item}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* footer */}
+            <div style={{
+              display: "flex",
+              gap: "12px",
+              padding: '16px',
+              borderTop: '1px solid #eee'
+            }}>
+              <button onClick={() => setShowForm(false)} style={{
+                flex: 1,
+                padding: '12px',
+                borderRadius: '14px',
+                border: "none",
+                background: '#e5e7eb'
+              }}>
+                Cancel
+              </button>
+
+              <button onClick={addMed} style={{
+                flex: 1,
+                padding: '12px',
+                borderRadius: '14px',
+                border: "none",
+                background: 'linear-gradient(90deg, #ff7a18, #ffb347)',
+                color: 'white'
+              }}>
+                Add Medication
+              </button>
+            </div>
+
           </div>
         </div>
       )}
-
     </div>
   );
 }
