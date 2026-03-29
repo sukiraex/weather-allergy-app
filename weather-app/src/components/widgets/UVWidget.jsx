@@ -54,6 +54,7 @@ const styles = {
     justifyContent: "center",
     flexShrink: 0,
     boxSizing: "border-box",
+    fontFamily: "'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif",
   },
 
   icon: {

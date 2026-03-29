@@ -138,6 +138,7 @@ const styles = {
     boxSizing: "border-box",
     boxShadow: "0 10px 20px rgba(0,0,0,0.12)",
     flexShrink: 0,
+    fontFamily: "'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif",
   },
 
   innerCard: {
