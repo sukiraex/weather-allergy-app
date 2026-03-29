@@ -75,12 +75,18 @@ function App() {
       </div>
  
       {/* widgets of the weather app */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '20px', marginBottom: '40px' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '20px', marginBottom: '40px' }}>
         <WeatherCard city={displayCity || "London"} />
-        <SunsetWidget city={displayCity || "London"} />
-        <WindWidget city={displayCity || "London"} />
-        <HumidityWidget city={displayCity || "London"} />
-        <UVWidget city={displayCity || "London"} />
+
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+          <SunsetWidget city={displayCity || "London"} />
+
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, minmax(0, 1fr))', gap: '5px', width: '85%' }}>
+            <WindWidget city={displayCity || "London"} />
+            <HumidityWidget city={displayCity || "London"} />
+            <UVWidget city={displayCity || "London"} />
+          </div>
+        </div>
       </div>
     </div>  
   );
