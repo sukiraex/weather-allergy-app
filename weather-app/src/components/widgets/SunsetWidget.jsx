@@ -132,7 +132,7 @@ const styles = {
   outerCard: {
     width: "448px",
     height: "200px",
-    backgroundColor: "#dbe7f1",
+    backgroundColor: "var(--widget-bg)",
     borderRadius: "30px",
     padding: "18px",
     boxSizing: "border-box",
@@ -143,14 +143,14 @@ const styles = {
   innerCard: {
     width: "100%",
     height: "100%",
-    backgroundColor: "#73a9cf",
+    backgroundColor: "var(--widget-accent)",
     borderRadius: "24px",
     boxSizing: "border-box",
     padding: "24px 28px 22px 28px",
     display: "flex",
     flexDirection: "column",
     justifyContent: "space-between",
-    color: "#ffffff",
+    color: "var(--widget-forecast-text)",
   },
 
   topRow: {
@@ -193,7 +193,7 @@ const styles = {
   subtitle: {
     fontSize: "15px",
     fontWeight: "400",
-    color: "rgba(255,255,255,0.95)",
+    color: "var(--widget-sunset-subtext)",
     marginTop: "2px",
   },
 

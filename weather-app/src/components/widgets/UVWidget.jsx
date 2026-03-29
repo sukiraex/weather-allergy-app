@@ -44,7 +44,7 @@ const styles = {
   card: {
     width: "140px",
     height: "136px",
-    backgroundColor: '#dce8f0',
+    backgroundColor: 'var(--widget-bg)',
 
     borderRadius: "24px",
     boxShadow: "0 10px 18px rgba(0,0,0,0.12)",
@@ -68,14 +68,14 @@ const styles = {
   value: {
     fontSize: "24px",
     fontWeight: "700",
-    color: "#0f172a",
+    color: "var(--widget-text)",
     lineHeight: "1",
     marginBottom: "10px",
   },
 
   label: {
     fontSize: "15px",
-    color: "#5f7286",
+    color: "var(--widget-label)",
     lineHeight: "1",
   },
 };

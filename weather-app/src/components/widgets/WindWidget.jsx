@@ -16,9 +16,9 @@ export default function WindWidget({ city = "London" }) {
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <path d="M3 8H14C16.2091 8 18 6.20914 18 4C18 1.79086 16.2091 0 14 0" stroke="#5E9FCC" strokeWidth="2" strokeLinecap="round"/>
-          <path d="M3 12H19C20.6569 12 22 13.3431 22 15C22 16.6569 20.6569 18 19 18C17.3431 18 16 16.6569 16 15" stroke="#5E9FCC" strokeWidth="2" strokeLinecap="round"/>
-          <path d="M3 16H10" stroke="#5E9FCC" strokeWidth="2" strokeLinecap="round"/>
+          <path d="M3 8H14C16.2091 8 18 6.20914 18 4C18 1.79086 16.2091 0 14 0" stroke="var(--widget-icon)" strokeWidth="2" strokeLinecap="round"/>
+          <path d="M3 12H19C20.6569 12 22 13.3431 22 15C22 16.6569 22 18 19 18C17.3431 18 16 16.6569 16 15" stroke="var(--widget-icon)" strokeWidth="2" strokeLinecap="round"/>
+          <path d="M3 16H10" stroke="var(--widget-icon)" strokeWidth="2" strokeLinecap="round"/>
         </svg>
       </div>
 
@@ -32,7 +32,7 @@ const styles = {
   card: {
     width: "140px",
     height: "136px",
-    backgroundColor: '#dce8f0',
+    backgroundColor: 'var(--widget-bg)',
     borderRadius: "24px",
     boxShadow: "0 10px 18px rgba(0,0,0,0.12)",
     display: "flex",
@@ -55,14 +55,14 @@ const styles = {
   value: {
     fontSize: "24px",
     fontWeight: "700",
-    color: "#0f172a",
+    color: "var(--widget-text)",
     lineHeight: "1",
     marginBottom: "10px",
   },
 
   label: {
     fontSize: "15px",
-    color: "#5f7286",
+    color: "var(--widget-label)",
     lineHeight: "1",
   },
 };

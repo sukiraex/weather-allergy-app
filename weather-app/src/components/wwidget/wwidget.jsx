@@ -3,12 +3,12 @@ import { usePollen } from '../../hooks/usePollen';
 
 // Colours for weather widget
 const colors = {
-  cardBg: '#EFF6FF',
-  forecastRowBg: '#7AADC5',
-  textPrimary: '#1a2e42',
-  textSecondary: '#4a6580',
-  textMuted: '#7a95aa',
-  white: '#ffffff',
+  cardBg: 'var(--widget-bg)',
+  forecastRowBg: 'var(--widget-forecast-bg)',
+  textPrimary: 'var(--widget-text)',
+  textSecondary: 'var(--widget-subtext)',
+  textMuted: 'var(--widget-subtext)',
+  white: 'var(--widget-forecast-text)',
   rainBlue: '#49A0C9',
   pollenLow: '#59C08D',
   pollenMedium: '#CFBC73',
@@ -129,7 +129,7 @@ export default function WeatherCard({ city = 'London' }) {
 
 const styles = {
   card: {
-    backgroundColor: '#dce8f0',
+    backgroundColor: colors.cardBg,
     borderRadius: '24px',
     padding: '20px',
     width: '340px',
@@ -151,7 +151,7 @@ const styles = {
     width: '72px',
     height: '72px',
     borderRadius: '50%',
-    backgroundColor: '#7AADC5',
+    backgroundColor: colors.forecastRowBg,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -159,20 +159,20 @@ const styles = {
   temperature: {
     fontSize: '56px',
     fontWeight: '300',
-    color: '#1a2e42',
+    color: colors.textPrimary,
     lineHeight: 1,
     letterSpacing: '-2px',
   },
   condition: {
     fontSize: '18px',
     fontWeight: '500',
-    color: '#4c7095',
+    color: colors.textSecondary,
     textTransform: 'capitalize',
     marginTop: '4px',
   },
   hiLow: {
     fontSize: '13px',
-    color: '#88a3bd',
+    color: colors.textSecondary,
     marginTop: '2px',
   },
   hourlyRow: {
@@ -190,16 +190,16 @@ const styles = {
   },
   hourlyTime: {
     fontSize: '11px',
-    color: '#7AADC5',
+    color: 'var(--widget-hourly-time)',
     fontWeight: '500',
   },
   hourlyTemp: {
     fontSize: '13px',
     fontWeight: '600',
-    color: '#1a2e42',
+    color: colors.textPrimary,
   },
   forecastSection: {
-    backgroundColor: '#7AADC5',
+    backgroundColor: colors.forecastRowBg,
     borderRadius: '18px',
     padding: '14px',
     display: 'flex',
@@ -214,11 +214,11 @@ const styles = {
   forecastTitle: {
     fontSize: '15px',
     fontWeight: '700',
-    color: '#ffffff',
+    color: colors.white,
   },
   forecastSubtitle: {
     fontSize: '11px',
-    color: 'rgba(255,255,255,0.7)',
+    color: 'var(--widget-forecast-muted)',
     marginTop: '2px',
   },
   forecastRow: {
@@ -234,7 +234,7 @@ const styles = {
   forecastDay: {
     fontSize: '14px',
     fontWeight: '600',
-    color: '#ffffff',
+    color: colors.white,
     width: '70px',
     flexShrink: 0,
   },
@@ -247,7 +247,7 @@ const styles = {
   forecastTemps: {
     fontSize: '14px',
     fontWeight: '700',
-    color: '#ffffff',
+    color: colors.white,
     flexShrink: 0,
     marginLeft: 'auto',
   },
