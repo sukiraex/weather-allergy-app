@@ -68,7 +68,7 @@ function App() {
     }}>
  
       {/* header (location, time, theme toggle) */}
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '12px', marginBottom: '24px' }}>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '12px', marginBottom: '10px' }}>
  
         <LocationBox
           locationConfirmed={locationConfirmed}
@@ -91,7 +91,7 @@ function App() {
       </div>
  
       {/* widgets of the weather app - 3 column layout */}
-      <div style={{ display: 'grid', gridTemplateColumns: '380px 450px 380px', gridTemplateRows: '1fr 1fr', rowGap: '30px', columnGap: '60px', justifyContent: 'center', margin: '0 auto 40px', minHeight: '840px' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: '420px 450px 420px', gridTemplateRows: '1fr 1fr', rowGap: '30px', columnGap: '60px', justifyContent: 'center', margin: '0 auto 40px', minHeight: '840px' }}>
         
         {/* Left column - Weather Card spans 2 rows */}
         <div style={{ gridRow: 'span 2', height: '100%' }}>
@@ -117,7 +117,7 @@ function App() {
         <div style={{ display: 'flex', flexDirection: 'column', gap: '16.6px', height: '100%' }}>
           <MedicationReminder pollenLevel={overall?.label} />
           <SunsetWidget city={displayCity || "London"} />
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '18px', width: '420px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '18px', width: '457px' }}>
             <WindWidget city={displayCity || "London"} />
             <HumidityWidget city={displayCity || "London"} />
             <UVWidget city={displayCity || "London"} />

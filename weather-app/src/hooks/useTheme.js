@@ -10,7 +10,7 @@ const LIGHT = {
   '--text-primary':     '#2c3e50',
   '--text-secondary':   '#5b6d7a',
   '--text-heading':     '#5d8ea4',
-  '--accent':           '#5d8ea4',
+  '--accent':           '#7AADC5',
   '--accent-hover':     '#4e7f94',
   '--border':           '#d1dbe3',
 
@@ -32,6 +32,8 @@ const LIGHT = {
   '--symptom-subtext': 'grey',
   '--symptom-warning-bg': '#FFF7ED',
   '--symptom-warning-border': '#FFD6A8',
+  '--medication-taken': '#4CAF50',
+  '--medication-taken-bg': '#d1eed1',
 };
 
 const DARK = {
@@ -42,8 +44,8 @@ const DARK = {
   '--text-primary':     '#e6edf3',
   '--text-secondary':   '#8b949e',
   '--text-heading':     '#79c0ff',
-  '--accent':           '#388bfd',
-  '--accent-hover':     '#58a6ff',
+  '--accent':           '#7AADC5',
+  '--accent-hover':     '#4e7f94',
   '--border':           '#30363d',
 
   // widget-specific colors
@@ -64,6 +66,8 @@ const DARK = {
   '--symptom-subtext': '#8b949e',
   '--symptom-warning-bg': '#2d2a1f',
   '--symptom-warning-border': '#5d4a2a',
+  '--medication-taken': '#6e8f6f',
+  '--medication-taken-bg': '#29412fb0',
 };
 
 export function useTheme() {

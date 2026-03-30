@@ -40,21 +40,23 @@ function PollenCard({ data }) {
       padding: "20px",
       borderRadius: "20px",
       width: "100%",
-      color: "white"
+      color: "white",
+      fontFamily: "'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif",
+      height: "252px",   // add this
     }}>
 
       {/* header */}
       <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "10px" }}>
         
         <div style={{
-          width: "30px",
-          height: "30px",
+          width: "25px",
+          height: "25px",
           borderRadius: "50%",
           background: "rgba(255,255,255,0.2)",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          fontSize: "14px"
+          fontSize: "12px"
         }}>
           ✿
         </div>
@@ -78,7 +80,7 @@ function PollenCard({ data }) {
 
         {/* score */}
         <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-          <h1 style={{ margin: 0, fontSize: "32px" }}>
+          <h1 style={{ margin: 0, fontSize: "30px" }}>
             {data.overall.score}
           </h1>
           <span>
@@ -113,7 +115,7 @@ function PollenCard({ data }) {
       </div>
 
       {/* trend */}
-      <p style={{ marginTop: "15px", fontSize: "12px", opacity: 0.9 }}>
+      <p style={{ marginTop: "10px", fontSize: "12px", opacity: 0.9 }}>
         ↗ {data.trendLabel}
       </p>
 

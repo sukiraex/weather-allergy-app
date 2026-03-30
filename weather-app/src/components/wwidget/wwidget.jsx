@@ -90,7 +90,7 @@ export default function WeatherCard({ city = 'London' }) {
 
         {daily.map((day, i) => {
           const pollen = pollenDaily?.[i];
-          const label = i === 1 ? 'Tomorrow' : day.day;
+          const label = i === 0 ? 'Today' : i === 1 ? 'Tomorrow' : day.day;
 
           return (
             <div key={i} style={styles.forecastRow}>
@@ -226,10 +226,10 @@ const styles = {
     display: 'flex',
     alignItems: 'center',
     gap: '8px',
-    padding: '10px 12px',
+    padding: '6px 12px',
     borderRadius: '14px',
     backgroundColor: 'rgba(255,255,255,0.15)',
-    marginBottom: '6px',
+    marginBottom: '4.48px',
     flexWrap: 'wrap',
   },
   forecastDay: {
@@ -262,7 +262,7 @@ const styles = {
     gap: '4px',
     width: '100%',
     paddingLeft: '4px',
-    marginTop: '2px',
+    marginTop: '1px',
   },
   pollenIcon: {
     fontSize: '12px',

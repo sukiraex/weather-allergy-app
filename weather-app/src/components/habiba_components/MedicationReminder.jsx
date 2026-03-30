@@ -18,12 +18,7 @@ function MedicationReminder({ pollenLevel }) {
   };
 
   const gradient = getPollenGradient(pollenLevel);
-  const [meds, setMeds] = useState([
-    { id: 1, name: "Cetirizine", dose: "10mg", time: "08:00", taken: true },
-    { id: 2, name: "Nasal Spray", dose: "2 sprays", time: "08:30", taken: true },
-    { id: 3, name: "Montelukast", dose: "10mg", time: "20:00", taken: false },
-    { id: 4, name: "Eye Drops", dose: "1 drop", time: "21:00", taken: false }
-  ]);
+  const [meds, setMeds] = useState([]);
 
   const [showForm, setShowForm] = useState(false);
   const [name, setName] = useState("");
@@ -68,6 +63,7 @@ function MedicationReminder({ pollenLevel }) {
       padding: "18px",
       borderRadius: "24px",
       width: "100%",
+      hight: "600px",
       color: "var(--widget-text)",
       alignSelf: "start",
       boxShadow: "0 4px 24px rgba(0,0,0,0.08)",
@@ -81,14 +77,14 @@ function MedicationReminder({ pollenLevel }) {
             width: "34px",
             height: "34px",
             borderRadius: "50%",
-            background: "#ffb347",
+            background: gradient,
             display: "flex",
             alignItems: "center",
             justifyContent: "center"
           }}>
             💊
           </div>
-          <h3 style={{ margin: 0, fontSize: "16px", fontWeight: "500", color: "var(--widget-text)", fontFamily: "inherit" }}>Medication</h3>
+          <h3 style={{ margin: 0, fontSize: "18px", fontWeight: "500", color: "var(--widget-text)", fontFamily: "inherit" }}>Medication</h3>
         </div>
 
         <button
@@ -114,7 +110,7 @@ function MedicationReminder({ pollenLevel }) {
       </p>
 
       <div style={{
-        background: "#dcdfe3",
+        background: "var(--widget-bg)",
         height: "6px",
         borderRadius: "10px",
         overflow: "hidden",
@@ -127,77 +123,98 @@ function MedicationReminder({ pollenLevel }) {
         }} />
       </div>
 
-      {/* list */}
-      {meds.map(m => (
-        <div key={m.id} style={{
-          background: "var(--bg-input)",
-          padding: "12px",
-          borderRadius: "14px",
-          marginBottom: "10px",
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          opacity: m.taken ? 0.6 : 1
-        }}>
-          <div>
-            <p style={{ margin: 0 }}>{m.name}</p>
-            <span style={{ fontSize: "12px", opacity: 0.7 }}>{m.dose}</span>
-          </div>
-
-          <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-            <span style={{ fontSize: "12px", opacity: 0.7 }}>
-              🕒 {formatTime(m.time)}
-            </span>
-
-            <button onClick={() => removeMed(m.id)} style={{
-              border: "none",
-              background: "transparent",
-              cursor: "pointer"
-            }}>
-              ✕
-            </button>
-
-            <button onClick={() => toggleTaken(m.id)} style={{
-              width: "20px",
-              height: "20px",
-              borderRadius: "50%",
-              border: "2px solid #666",
-              background: m.taken ? "#4caf50" : "transparent",
-              cursor: "pointer"
-            }} />
-          </div>
-        </div>
-      ))}
-
-      {/* next dose or all taken message */}
-      {nextDose ? (
+      {/* empty state or med list */}
+      {meds.length === 0 ? (
         <div style={{
           background: "var(--symptom-warning-bg)",
           border: "1px solid var(--symptom-warning-border)",
           borderRadius: "14px",
-          marginTop: "10px"
+          padding: "24px 16px",
+          textAlign: "center",
+          marginBottom: "10px"
         }}>
-          <div style={{padding: "10px", textAlign: "left"}}>
-            <div style={{ display: "flex", alignItems: "flex-start", gap: "6px", marginBottom: "4px" }}>
-              <span style={{fontSize: "14px"}}>🔔</span>
-              <label style={{fontSize: "12px", fontWeight: "600", color: "var(--widget-text)"}}>Next Dose</label>
-            </div>
-            <label style={{fontSize: "12px", fontWeight: "400", marginLeft: "20px", color: "var(--widget-text)"}}>The {nextDose.name} at {formatTime(nextDose.time)}</label>
-          </div>
-        </div>
-      ) : (
-        <div style={{
-          background: "var(--bg-input)",
-          border: "2px solid #4CAF50",
-          padding: "12px",
-          borderRadius: "14px",
-          marginTop: "10px"
-        }}>
-          <p style={{ margin: 0, fontSize: "12px", color: "#4CAF50" }}>✓ All medications taken</p>
-          <p style={{ margin: 0, color: "var(--widget-text)", fontSize: "13px" }}>
-            No more medication today
+          <p style={{ margin: "0 0 6px 0", fontSize: "13px", fontWeight: "600", color: "var(--widget-text)" }}>
+            No medication data
+          </p>
+          <p style={{ margin: 0, fontSize: "12px", opacity: 0.6, color: "var(--widget-text)" }}>
+            Please enter your medications for today
           </p>
         </div>
+      ) : (
+        <>
+          {meds.map(m => (
+            <div key={m.id} style={{
+              background: "var(--bg-input)",
+              padding: "12px",
+              borderRadius: "14px",
+              marginBottom: "10px",
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              opacity: m.taken ? 0.6 : 1
+            }}>
+              <div>
+                <p style={{ margin: 0, fontSize: "13px" }}>{m.name}</p>
+                <span style={{ fontSize: "12px", opacity: 0.7 }}>{m.dose}</span>
+              </div>
+
+              <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                <span style={{ fontSize: "12px", opacity: 0.7 }}>
+                  🕒 {formatTime(m.time)}
+                </span>
+
+                <button onClick={() => removeMed(m.id)} style={{
+                  border: "none",
+                  background: "transparent",
+                  cursor: "pointer"
+                }}>
+                  ✕
+                </button>
+
+                <button onClick={() => toggleTaken(m.id)} style={{
+                  width: "20px",
+                  height: "20px",
+                  borderRadius: "50%",
+                  border: "2px solid #666",
+                  background: m.taken ? "#4caf50" : "transparent",
+                  cursor: "pointer"
+                }} />
+              </div>
+            </div>
+          ))}
+
+          {nextDose ? (
+            <div style={{
+              background: "var(--symptom-warning-bg)",
+              border: "1px solid var(--symptom-warning-border)",
+              borderRadius: "14px",
+              marginTop: "10px"
+            }}>
+              <div style={{ padding: "10px", textAlign: "left" }}>
+                <div style={{ display: "flex", alignItems: "flex-start", gap: "6px", marginBottom: "4px" }}>
+                  <span style={{ fontSize: "14px" }}>🔔</span>
+                  <label style={{ fontSize: "12px", fontWeight: "600", color: "var(--widget-text)" }}>Next Dose</label>
+                </div>
+                <label style={{ fontSize: "12px", fontWeight: "400", marginLeft: "20px", color: "var(--widget-text)" }}>
+                  The {nextDose.name} at {formatTime(nextDose.time)}
+                </label>
+              </div>
+            </div>
+          ) : (
+            <div style={{
+              background: "var(--medication-taken-bg)",
+              border: "1px solid var(--medication-taken)",
+              padding: "12px",
+              borderRadius: "14px",
+              marginTop: "10px"
+            }}>
+              <p style={{ margin: 0, fontSize: "12px", color: "#4CAF50" }}>✓ All medications taken</p>
+              <p style={{ margin: 0, color: "var(--widget-text)", fontSize: "13px" }}>
+                No more medication today
+              </p>
+            </div>
+          )}
+        </>
       )}
 
       {/* modal */}
