@@ -1,4 +1,3 @@
-import { usePollen } from "../../hooks/usePollen";
 import { theme } from "../../symptomtheme";
 import trackericon from './icons/trackericon.svg';
 import LogSymptoms from "./LogSymptoms";
@@ -44,7 +43,6 @@ const isActive = (currentLabel) => {
  
 export default function SymptomTracker ({city = 'London'}) {
 
-    const { overall: pollentoday} = usePollen(city);
     const [isOpen, setIsOpen] = useState(false); //checks if pop up is open
     const [SavedRate, setSavedRate] = useState([0,0,0,0,0,0]); //will be used to save the user's rating on the pop up
 
@@ -68,7 +66,10 @@ export default function SymptomTracker ({city = 'London'}) {
         
 
            <div>
-            {pollentoday && symptoms.map((i, index) => (
+
+
+            {/* map symptoms so we can list all the symptom names without creating multiple labels */}
+            {symptoms.map((i, index) => (
               <div key={i.name} style={{marginBottom: '12px', fontSize: '14px', display: 'flex', justifyContent: 'space-between' }}>
                 
                 <label style={theme.container}>
@@ -93,11 +94,17 @@ export default function SymptomTracker ({city = 'London'}) {
                   )}
                   </span>
 
+
+
+                      {/* if the symptom is active (Rated by user) then font colour is black, otherwise is greyed out to indicate no symptom or not yet rated */}
+                
                   <label style={{color: (isActive(SavedRate[index])) ? 'black' : 'grey'}}>
                 {i.name}
                 </label>
 
                 </label>
+
+                {/* gets specific colour according to severity, low is green, moderate greenish-yellow, etc. */}
 
                 <span style={{color: getsymcolour(severity[SavedRate[index]])}}>{severity[SavedRate[index]]}</span>
 
@@ -111,6 +118,8 @@ export default function SymptomTracker ({city = 'London'}) {
 
           
            <div  style={{ position: 'absolute', bottom: '16px', left: '50%', transform: 'translateX(-50%)', width: '95%', display: 'flex', flexDirection: 'column', gap: '8px'}}>
+
+           {/* Checks if symptoms are high, if so, a warning is show to user to take medication and consider staying indoors */}         
 
            {SavedRate.some(r => r >= 3) && (
              <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '8px' }}>
@@ -132,16 +141,19 @@ export default function SymptomTracker ({city = 'London'}) {
              </div>
            ) }
           
-
+            {/* onclick, isOpen set to true */}
            <div>
            <button onClick={() => setIsOpen(true) } style={{...theme.buttons, background: theme.buttons.buttongradient, width:'95%', height: '40px', borderRadius: '14px'}}>Log Symptoms</button>
             </div>
 
             </div>
+
+            {/* if is open is true, then logsymptoms component pops up */}
+
             {
             isOpen && (
               <div style={{  position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'rgba(0,0,0,0.5)', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-                <LogSymptoms onClose={() => setIsOpen(false)} onSave={onSave} savedRate={SavedRate} />
+                <LogSymptoms onClose={() => setIsOpen(false)} onSave={onSave} savedRate={SavedRate} /> {/* passing state variables as props to logsymptoms so ratings can be saved and to allow pop up mechanisim */}
               </div>
             )
            }

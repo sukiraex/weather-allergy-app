@@ -12,7 +12,7 @@ const severity = ['None','Low', 'Moderate', 'High', 'Very High','Severe']
 
 
 
-export default function LogSymptoms({ onClose, onSave, savedRate, level,  setLevel}){
+export default function LogSymptoms({ onClose, onSave, savedRate}){
 
     console.log('savedRate:', savedRate);
 
@@ -45,7 +45,7 @@ export default function LogSymptoms({ onClose, onSave, savedRate, level,  setLev
 
     return (
         
-        <div style={{...theme.card, backgroundColor: '#FFFFFF' , overflow: 'hidden', padding: 0, width: '380px', textAlign: 'left'}}>
+        <div style={{...theme.card, backgroundColor: '#FFFFFF' , overflow: 'hidden', padding: 0, width: '380px', textAlign: 'left'}}> {/* clip to div */}
             <div style={{background: theme.buttons.buttongradient, padding: '24px 24px', display: 'flex', gap: '1px', maxWidth: '100%', color: '#FFFFFF', position: 'relative'   }}>
 
                 <img src={circle} alt="circle"  style={{width: '45px', height: '45px'}}/>
@@ -80,7 +80,9 @@ export default function LogSymptoms({ onClose, onSave, savedRate, level,  setLev
             <label>Rate your symptoms (0-5)</label>
             </div>
 
-            <div style={{overflowY: 'scroll', padding: '0 16px'}}>
+            <div style={{ padding: '0 16px'}}> 
+
+            {/* maps symptoms so can be shown without having to create multiple labels and divs for each symptom */}
                 
                 {
                     
@@ -108,6 +110,8 @@ export default function LogSymptoms({ onClose, onSave, savedRate, level,  setLev
                             </div>
 
                             </div>
+
+                            {/* rating system that works similar to a progress bar, the outer div has the full width, and the inner div's width changes according to the user rating */}
 
                               {/* outer div */}
                               <div style={{ padding: 0, background: '#E5E7EB', borderRadius: '14px', marginTop: '5px', overflow: 'hidden', height: '6px'}}>
@@ -137,7 +141,9 @@ export default function LogSymptoms({ onClose, onSave, savedRate, level,  setLev
 
 
             <div style={{padding: '10px', display: 'flex', justifyContent: 'space-between'}}>
+                {/* closes without saving */}
             <button onClick={onClose} style={{...theme.buttons, background: '#F3F4F6', width:'48%', height: '40px', borderRadius: '14px', color:'#364153' }}>Cancel</button>
+            {/* saves rating  */}
             <button onClick={ () => onSave(rating)} style={{...theme.buttons, background: theme.buttons.buttongradient, width:'48%', height: '40px', borderRadius: '14px' }}>Log Symptoms</button>
             </div>
            
