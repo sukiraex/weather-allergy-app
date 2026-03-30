@@ -6,7 +6,7 @@ export default function SunsetWidget({ city = "London" }) {
   const [currentSlide, setCurrentSlide] = useState(0);
 
   const sunsetDate = current?.sunset
-    ? new Date(current.sunset * 1000)
+    ? new Date(current.sunset)
     : null;
 
   const sunsetTime = sunsetDate

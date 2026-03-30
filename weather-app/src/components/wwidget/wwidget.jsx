@@ -87,13 +87,10 @@ export default function WeatherCard({ city = 'London' }) {
           <span style={styles.forecastSubtitle}>Weather & Pollen Levels</span>
         </div>
 
-        <div style={{ color: 'red', fontSize: 12 }}>
-        daily: {daily.length} days | pollen: {pollenDaily?.length} days
-        </div>
 
         {daily.map((day, i) => {
           const pollen = pollenDaily?.[i];
-          const label = i === 0 ? 'Today' : i === 1 ? 'Tomorrow' : day.day;
+          const label = i === 1 ? 'Tomorrow' : day.day;
 
           return (
             <div key={i} style={styles.forecastRow}>
@@ -136,7 +133,7 @@ const styles = {
     backgroundColor: colors.cardBg,
     borderRadius: '24px',
     padding: '20px',
-    width: '340px',
+    width: '100%',
     fontFamily: "'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif",
     boxShadow: "0 10px 18px rgba(0,0,0,0.12)",
   },

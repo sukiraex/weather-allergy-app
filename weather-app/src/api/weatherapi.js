@@ -1,45 +1,81 @@
 import axios from 'axios';
 
-const API_KEY = process.env.REACT_APP_WEATHER_API_KEY;
-const BASE_URL = 'https://api.openweathermap.org/data/2.5';
+const BASE_URL = 'https://api.open-meteo.com/v1/forecast';
+const GEO_URL = 'https://geocoding-api.open-meteo.com/v1/search';
 
-// Helper to build params based on input
-const getLocationParams = (location) => {
-  if (typeof location === 'object' && location.lat != null && location.lon != null) {
-    return { lat: location.lat, lon: location.lon };
-  } else if (typeof location === 'string' && location.trim()) {
-    return { q: location };
-  }
-  throw new Error('Invalid location: must be city string or { lat, lon } object');
+// WMO weather code → condition + icon mapping (using OpenWeatherMap icon codes)
+const getWeatherInfo = (code, isDay = 1) => {
+  const d = isDay ? 'd' : 'n';
+  if (code === 0) return { condition: 'Clear', description: 'clear sky', icon: `01${d}` };
+  if (code === 1) return { condition: 'Clear', description: 'mainly clear', icon: `01${d}` };
+  if (code === 2) return { condition: 'Clouds', description: 'partly cloudy', icon: `02${d}` };
+  if (code === 3) return { condition: 'Clouds', description: 'overcast', icon: `04${d}` };
+  if (code <= 49) return { condition: 'Fog', description: 'foggy', icon: `50${d}` };
+  if (code <= 59) return { condition: 'Drizzle', description: 'drizzle', icon: `09${d}` };
+  if (code <= 69) return { condition: 'Rain', description: 'rain', icon: `10${d}` };
+  if (code <= 79) return { condition: 'Snow', description: 'snow', icon: `13${d}` };
+  if (code <= 82) return { condition: 'Rain', description: 'rain showers', icon: `09${d}` };
+  if (code <= 86) return { condition: 'Snow', description: 'snow showers', icon: `13${d}` };
+  if (code <= 99) return { condition: 'Thunderstorm', description: 'thunderstorm', icon: `11${d}` };
+  return { condition: 'Unknown', description: 'unknown', icon: `01${d}` };
 };
 
-// Current weather + feels like + high/low
+// Resolve city string → lat/lon using Open-Meteo geocoding
+const resolveLocation = async (location) => {
+  if (typeof location === 'object' && location.lat != null && location.lon != null) {
+    return { lat: location.lat, lon: location.lon, city: location.city || '' };
+  }
+
+  const res = await axios.get(GEO_URL, {
+    params: { name: location, count: 1, language: 'en', format: 'json' },
+  });
+
+  const result = res.data.results?.[0];
+  if (!result) throw new Error(`Location not found: ${location}`);
+
+  return { lat: result.latitude, lon: result.longitude, city: result.name };
+};
+
 export const fetchCurrentWeather = async (location) => {
   try {
-    const params = {
-      ...getLocationParams(location),
-      units: 'metric',
-      appid: API_KEY,
-    };
+    const { lat, lon, city } = await resolveLocation(location);
 
-    const response = await axios.get(`${BASE_URL}/weather`, { params });
+    const response = await axios.get(BASE_URL, {
+      params: {
+        latitude: lat,
+        longitude: lon,
+        current: [
+          'temperature_2m',
+          'apparent_temperature',
+          'weather_code',
+          'wind_speed_10m',
+          'relative_humidity_2m',
+          'is_day',
+        ].join(','),
+        daily: ['temperature_2m_max', 'temperature_2m_min', 'sunrise', 'sunset'].join(','),
+        timezone: 'auto',
+        forecast_days: 1,
+      },
+    });
 
-    const data = response.data;
+    const c = response.data.current;
+    const d = response.data.daily;
+    const { condition, description, icon } = getWeatherInfo(c.weather_code, c.is_day);
 
     return {
-      city: data.name,  // Works for both city query and lat/lon (returns nearest city name)
-      temperature: Math.round(data.main.temp),
-      feelsLike: Math.round(data.main.feels_like),
-      high: Math.round(data.main.temp_max),
-      low: Math.round(data.main.temp_min),
-      humidity: data.main.humidity,
-      windSpeed: Math.round(data.wind.speed * 3.6), // m/s → km/h; change to * 2.237 for mph if preferred
-      condition: data.weather[0].main,
-      description: data.weather[0].description,
-      icon: data.weather[0].icon,
-      sunrise: data.sys.sunrise,
-      sunset: data.sys.sunset,
-      uvIndex: null, // Filled later in hook
+      city,
+      temperature: Math.round(c.temperature_2m),
+      feelsLike: Math.round(c.apparent_temperature),
+      high: Math.round(d.temperature_2m_max[0]),
+      low: Math.round(d.temperature_2m_min[0]),
+      humidity: c.relative_humidity_2m,
+      windSpeed: Math.round(c.wind_speed_10m),
+      condition,
+      description,
+      icon,
+      sunrise: d.sunrise[0],
+      sunset: d.sunset[0],
+      uvIndex: null,
     };
   } catch (error) {
     console.error('Error fetching current weather:', error);
@@ -47,54 +83,56 @@ export const fetchCurrentWeather = async (location) => {
   }
 };
 
-// Hourly + 7-day forecast (5-day/3hr free tier)
 export const fetchForecast = async (location) => {
   try {
-    const params = {
-      ...getLocationParams(location),
-      units: 'metric',
-      appid: API_KEY,
-    };
+    const { lat, lon } = await resolveLocation(location);
 
-    const response = await axios.get(`${BASE_URL}/forecast`, { params });
-
-    const list = response.data.list;
-
-    // Hourly — next 6 entries (~18 hours)
-    const hourly = list.slice(0, 6).map((item) => ({
-      time: new Date(item.dt * 1000).toLocaleTimeString('en-GB', {
-        hour: 'numeric',
-        hour12: true,
-      }),
-      temperature: Math.round(item.main.temp),
-      icon: item.weather[0].icon,
-      condition: item.weather[0].main,
-      rainChance: Math.round((item.pop || 0) * 100),
-    }));
-
-    // Daily — group by date, prefer midday if available
-    const dailyMap = {};
-    list.forEach((item) => {
-      const date = new Date(item.dt * 1000);
-      const dayKey = date.toDateString();
-      const hour = date.getHours();
-
-      if (!dailyMap[dayKey] || hour === 12) {
-        dailyMap[dayKey] = {
-          day: date.toLocaleDateString('en-GB', { weekday: 'short' }),
-          date: dayKey,
-          high: Math.round(item.main.temp_max),
-          low: Math.round(item.main.temp_min),
-          icon: item.weather[0].icon,
-          condition: item.weather[0].main,
-          rainChance: Math.round((item.pop || 0) * 100),
-        };
-      }
+    const response = await axios.get(BASE_URL, {
+      params: {
+        latitude: lat,
+        longitude: lon,
+        hourly: ['temperature_2m', 'weather_code', 'precipitation_probability'].join(','),
+        daily: [
+          'temperature_2m_max',
+          'temperature_2m_min',
+          'weather_code',
+          'precipitation_probability_max',
+        ].join(','),
+        timezone: 'auto',
+        forecast_days: 7, // today + 7 days ahead
+      },
     });
 
-    const daily = Object.values(dailyMap).slice(0, 7);
+    const { hourly, daily } = response.data;
 
-    return { hourly, daily };
+    // Hourly — next 6 entries from current hour
+    const now = new Date();
+    const currentHourIndex = hourly.time.findIndex((t) => new Date(t) >= now);
+    const startIndex = currentHourIndex === -1 ? 0 : currentHourIndex;
+
+    const hourlyData = hourly.time.slice(startIndex, startIndex + 6).map((time, i) => {
+      const idx = startIndex + i;
+      return {
+        time: new Date(time).toLocaleTimeString('en-GB', { hour: 'numeric', hour12: true }),
+        temperature: Math.round(hourly.temperature_2m[idx]),
+        icon: getWeatherInfo(hourly.weather_code[idx]).icon,
+        condition: getWeatherInfo(hourly.weather_code[idx]).condition,
+        rainChance: hourly.precipitation_probability[idx] ?? 0,
+      };
+    });
+
+    // Daily — today at index 0, next 7 days follow
+    const dailyData = daily.time.map((time, i) => ({
+      day: new Date(time).toLocaleDateString('en-GB', { weekday: 'short' }),
+      date: new Date(time).toDateString(),
+      high: Math.round(daily.temperature_2m_max[i]),
+      low: Math.round(daily.temperature_2m_min[i]),
+      icon: getWeatherInfo(daily.weather_code[i]).icon,
+      condition: getWeatherInfo(daily.weather_code[i]).condition,
+      rainChance: daily.precipitation_probability_max[i] ?? 0,
+    }));
+
+    return { hourly: hourlyData, daily: dailyData };
   } catch (error) {
     console.error('Error fetching forecast:', error);
     throw error;
