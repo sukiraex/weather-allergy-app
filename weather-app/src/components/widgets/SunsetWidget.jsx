@@ -2,7 +2,7 @@ import { useWeather } from "../../hooks/useWeather";
 import { useState, useEffect } from "react";
 
 export default function SunsetWidget({ city = "London" }) {
-  const { current, loading, error } = useWeather(city);
+  const { current, daily, loading, error } = useWeather(city);
   const [currentSlide, setCurrentSlide] = useState(0);
 
   const sunsetDate = current?.sunset
@@ -14,6 +14,15 @@ export default function SunsetWidget({ city = "London" }) {
         sunsetDate.getMinutes()
       ).padStart(2, "0")}`
     : "--:--";
+
+  // Get today's and tomorrow's rain chance
+  const todayRainChance = daily && daily[0] ? daily[0].rainChance || 0 : 0;
+  const tomorrowRainChance = daily && daily[1] ? daily[1].rainChance || 0 : 0;
+  
+  // Check if today has no precipitation
+  const isNoPrecipitationToday = todayRainChance < 10;
+  // Find next no precipitation day
+  const nextNoPrecipDay = daily ? daily.find(day => day.rainChance < 10) : null;
 
   const slides = [
     {
@@ -41,9 +50,11 @@ export default function SunsetWidget({ city = "London" }) {
       ),
     },
     {
-      title: "No-Precipitation Day Ahead",
-      value: "",
-      subtitle: "Expect tomorrow to be the next no precipitation day",
+      title: isNoPrecipitationToday ? "Clear Day Today!" : "Rain Expected",
+      value: `${todayRainChance}%`,
+      subtitle: isNoPrecipitationToday 
+        ? `No rain expected today (${todayRainChance}% chance)`
+        : `${todayRainChance}% chance of rain today`,
       icon: (
         <svg
           width="24"

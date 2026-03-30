@@ -46,7 +46,7 @@ function App() {
   const localTime = useLocalTime(location);  // get the local time for the location (used in header and sunset widget)
   const cleanCity = displayCity
     ? displayCity.split(",")[0].trim()
-    : "";
+    : "London";  // default to London while auto-detecting location
   const pollen = usePollen(cleanCity);
 
   const{
