@@ -1,6 +1,8 @@
 import { theme } from "../../symptomtheme";
 import { useState } from "react";
 import  circle  from "./icons/Container.svg"
+import plus from "./icons/Button.svg";
+import minus from "./icons/Icon.svg";
 
 const symptoms = ["Sneezing", "Runny Nose", "Itchy Eyes", "Congestion", "Headache", "Fatigue"];
 const severity = [
@@ -62,7 +64,7 @@ export default function LogSymptoms({ onClose, onSave, savedRate}){
 
             <div style={{color: '#0A0A0A', fontSize: '14px', marginTop: '12px', padding: '0 16px' }}>
                 <label>Date & Time</label>
-                <div style={{display: 'flex', justifyContent: 'space-between', backgroundColor: '#EFF6FF', padding: '12px', borderRadius: '14px', marginTop: '12px' ,marginBottom: '12px' }}>
+                <div style={{display: 'flex', justifyContent: 'space-between', backgroundColor: '#EFF6FF', padding: '12px', borderRadius: '14px', marginTop: '12px' ,marginBottom: '15px' }}>
                     <label>
                         {
                             now.toLocaleString ( 'en-GB', {
@@ -81,7 +83,7 @@ export default function LogSymptoms({ onClose, onSave, savedRate}){
                 </div>
             </div>
 
-            <div style={{fontSize: '14px', padding: '0 16px', marginBottom: '5px', color: '#0A0A0A'}}>
+            <div style={{fontSize: '14px', padding: '0 16px', marginBottom: '8px', color: '#0A0A0A'}}>
             <label>Rate your symptoms (0-5)</label>
             </div>
 
@@ -102,10 +104,14 @@ export default function LogSymptoms({ onClose, onSave, savedRate}){
 
 
                             
-                            <div style={{}}>
-                            <button style={{color:'#0A0A0A', background: '#EFF6FF', border: 'None'}} onClick={() => DecrementRates(index)}>—</button>
-                            <label>{rating[index]} - {severity[rating[index]].rate}</label>
-                            <button style={{color:'#0A0A0A', background: '#EFF6FF', border: 'None'}}  onClick={() => IncrementRates(index)}>+</button>
+                            <div style={{display: 'flex', alignItems: 'center' }}>
+                            <button style={{color:'#0A0A0A', background: '#EFF6FF', border: 'None'}} onClick={() => DecrementRates(index)}>
+                            <img src={minus} alt="minus" style={{verticalAlign: 'middle', }}/>
+                            </button>
+                            <label style={{width: '110px', textAlign: 'center'}}>{rating[index]} - {severity[rating[index]].rate}</label>
+                            <button style={{color:'#0A0A0A', background: '#EFF6FF', border: 'None'}}  onClick={() => IncrementRates(index)}>
+                            <img src={plus} alt="plus" style={{verticalAlign: 'middle', width: '20px', height: '20px'}}/>
+                            </button>
                             </div>
 
                             </div>
