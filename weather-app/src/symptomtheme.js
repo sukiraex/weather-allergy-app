@@ -23,6 +23,7 @@ export const theme = {
       },
 
       warningcolours: {
+        None: 'grey',
         Low: '#59C08D',
         Medium: '#c1cb45',
         High: '#e9b130',

@@ -22,6 +22,7 @@ const symptoms = [
 
 const getsymcolour = (label) => { //returns colour according to level
   switch (label) {
+    case '—': return theme.warningcolours.None;
     case 'Low': return theme.warningcolours.Low;
     case 'Moderate': return theme.warningcolours.Medium;
     case 'High': return theme.warningcolours.High;
@@ -91,10 +92,13 @@ export default function SymptomTracker ({city = 'London'}) {
                     </svg>
                   )}
                   </span>
+
+                  <label style={{color: (isActive(SavedRate[index])) ? 'black' : 'grey'}}>
                 {i.name}
+                </label>
 
                 </label>
-                
+
                 <span style={{color: getsymcolour(severity[SavedRate[index]])}}>{severity[SavedRate[index]]}</span>
 
 
