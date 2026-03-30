@@ -5,21 +5,14 @@ import plus from "./icons/Button.svg";
 import minus from "./icons/Icon.svg";
 
 const symptoms = ["Sneezing", "Runny Nose", "Itchy Eyes", "Congestion", "Headache", "Fatigue"];
-const severity = [
-    {rate: 'None'},
-    {rate: 'Mild'},
-    { rate: 'Moderate'},
-    { rate: 'High'},
-    { rate: 'Severe'},
-    { rate: 'Very Severe'}
-]
+const severity = ['None','Low', 'Moderate', 'High', 'Very High','Severe']
 
 
 
 
 
 
-export default function LogSymptoms({ onClose, onSave, savedRate}){
+export default function LogSymptoms({ onClose, onSave, savedRate, level,  setLevel}){
 
     console.log('savedRate:', savedRate);
 
@@ -108,7 +101,7 @@ export default function LogSymptoms({ onClose, onSave, savedRate}){
                             <button style={{color:'#0A0A0A', background: '#EFF6FF', border: 'None'}} onClick={() => DecrementRates(index)}>
                             <img src={minus} alt="minus" style={{verticalAlign: 'middle', }}/>
                             </button>
-                            <label style={{width: '110px', textAlign: 'center'}}>{rating[index]} - {severity[rating[index]].rate}</label>
+                            <label style={{width: '110px', textAlign: 'center'}}>{rating[index]} - {severity[rating[index]]}</label>
                             <button style={{color:'#0A0A0A', background: '#EFF6FF', border: 'None'}}  onClick={() => IncrementRates(index)}>
                             <img src={plus} alt="plus" style={{verticalAlign: 'middle', width: '20px', height: '20px'}}/>
                             </button>

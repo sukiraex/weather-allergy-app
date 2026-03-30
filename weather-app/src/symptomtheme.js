@@ -24,9 +24,10 @@ export const theme = {
 
       warningcolours: {
         Low: '#59C08D',
-        Medium: '#CFBC73',
-        High: '#DF9746',
-        VeryHigh: '#D96B6E',
+        Medium: '#c1cb45',
+        High: '#e9b130',
+        VeryHigh: '#dc802c',
+        Severe: '#d02d2c',
         Muted: '#7a95aa'
       },
 
