@@ -91,15 +91,15 @@ function App() {
       </div>
  
       {/* widgets of the weather app - 3 column layout */}
-      <div style={{ display: 'grid', gridTemplateColumns: '2fr 1.5fr 1.5fr', gridTemplateRows: 'auto auto', gap: '20px', marginBottom: '40px' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: '380px 450px 380px', gridTemplateRows: '1fr 1fr', rowGap: '30px', columnGap: '60px', justifyContent: 'center', margin: '0 auto 40px', minHeight: '840px' }}>
         
         {/* Left column - Weather Card spans 2 rows */}
         <div style={{ gridRow: 'span 2', height: '100%' }}>
           <WeatherCard city={displayCity || "London"} />
         </div>
 
-        {/* Center column - Pollen Card */}
-        <div style={{ height: '100%' }}>
+        {/* Center column - Pollen + Symptom stack */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', height: '100%' }}>
           <PollenCard
             data={{
               overall,
@@ -107,23 +107,17 @@ function App() {
               trendLabel
             }}
           />
-        </div>
 
-        {/* Right column - Medication Reminder */}
-        <div style={{ height: '100%' }}>
-          <MedicationReminder pollenLevel={overall?.label} />
-        </div>
-
-        {/* Center column - Symptom Tracker */}
-        <div style={{ height: '100%' }}>
           <SymptomTracker city={displayCity || "London"} pollenLevel={overall?.label} />
         </div>
 
-        {/* Right column - Sunset and Small Widgets */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', height: '100%' }}>
-          <SunsetWidget city={displayCity || "London"} />
+        
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, minmax(0, 1fr))', gap: '10px' }}>
+        {/* Right bottom - Sunset and Small Widgets */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '16.6px', height: '100%' }}>
+          <MedicationReminder pollenLevel={overall?.label} />
+          <SunsetWidget city={displayCity || "London"} />
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '18px', width: '420px' }}>
             <WindWidget city={displayCity || "London"} />
             <HumidityWidget city={displayCity || "London"} />
             <UVWidget city={displayCity || "London"} />
