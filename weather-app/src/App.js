@@ -22,6 +22,8 @@ import ThemeToggle from './components/header/ThemeToggle.jsx';
 import { useLocation } from "./hooks/useLocation";
 import { useLocalTime } from "./hooks/useLocalTime";
 
+import PollenCard from './components/habiba_components/PollenCard.jsx';
+import MedicationReminder from './components/habiba_components/MedicationReminder.jsx';
 function App() {
   const [locationConfirmed, setLocationConfirmed] = useState(false); // whether the user has confirmed their location (either by allowing geolocation or selecting a suggestion)
  
@@ -42,7 +44,19 @@ function App() {
   } = useLocation(setLocationConfirmed);
  
   const localTime = useLocalTime(location);  // get the local time for the location (used in header and sunset widget)
- 
+  const cleanCity = displayCity
+    ? displayCity.split(",")[0].trim()
+    : "";
+  const pollen = usePollen(cleanCity);
+
+  const{
+    overall,
+    types,
+    trendLabel, 
+    loading: pollenLoading,
+    error: pollenError
+  } = pollen;
+
   return (
     <div style={{
       padding: '20px',
