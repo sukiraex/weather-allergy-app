@@ -59,7 +59,7 @@ export default function SymptomTracker ({city = 'London'}) {
         <><div style={{...theme.card, width: '430px', height: '410px' , textAlign: 'center', flexDirection: 'column', position: 'relative'}}>
           
            <div style={{marginBottom: '40px', display: 'flex', justifyContent: 'space-between'}}>
-           <h3 style={{margin: 0, textAlign: 'left', float: 'left', fontWeight: '500'}}>Symptom Tracker</h3>
+           <h3 style={{margin: 0, textAlign: 'left', float: 'left', fontWeight: '500', color: 'var(--symptom-text)'}}>Symptom Tracker</h3>
            <img src={trackericon} style={{width: '22px', height: '22px'}} alt="calendar"/>
            </div>
 
@@ -98,7 +98,7 @@ export default function SymptomTracker ({city = 'London'}) {
 
                       {/* if the symptom is active (Rated by user) then font colour is black, otherwise is greyed out to indicate no symptom or not yet rated */}
                 
-                  <label style={{color: (isActive(SavedRate[index])) ? 'black' : 'grey'}}>
+                  <label style={{color: (isActive(SavedRate[index])) ? 'var(--symptom-text)' : 'var(--symptom-subtext)', marginLeft: '8px'}}>
                 {i.name}
                 </label>
 
@@ -124,15 +124,15 @@ export default function SymptomTracker ({city = 'London'}) {
            {SavedRate.some(r => r >= 3) && (
              <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '8px' }}>
 
-             <div style={{background: '#FFF7ED', width:'95%', borderRadius: '14px', border: '1px solid #FFD6A8', }}>
+             <div style={{background: 'var(--symptom-warning-bg)', width:'95%', borderRadius: '14px', border: '1px solid var(--symptom-warning-border)', }}>
            
               <div style={{padding: '10px', textAlign: 'left'}}>
                 <div style={{ display: 'flex', alignItems: 'flex-start', gap: '6px', marginBottom: '4px' }} >
               <img src={warning} alt="warning" style={{width: '14px', height: '14px'}}/>
-              <label style={{fontSize: '12px', fontWeight: '600'}}>Today's Status</label>
+              <label style={{fontSize: '12px', fontWeight: '600', color: 'var(--symptom-text)'}}>Today's Status</label>
               </div>
   
-              <label style={{fontSize: '12px', fontWeight: '400', marginLeft: '20px'}}>High symptoms today, stay indoors and take medication</label>
+              <label style={{fontSize: '12px', fontWeight: '400', marginLeft: '20px', color: 'var(--symptom-text)'}}>High symptoms today, stay indoors and take medication</label>
               </div>
   
   

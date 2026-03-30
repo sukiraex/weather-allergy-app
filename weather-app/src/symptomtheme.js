@@ -14,7 +14,7 @@ export const theme = {
   
 
     card: {
-        backgroundColor: '#dce8f0',
+        backgroundColor: 'var(--widget-bg)',
         borderRadius: '24px',
         padding: '20px',
         width: '340px',
@@ -29,21 +29,7 @@ export const theme = {
         High: '#e9b130',
         VeryHigh: '#dc802c',
         Severe: '#d02d2c',
-        Muted: '#7a95aa'
-      },
-
-     
-      container: {
-        cursor: 'pointer',
-        fontSize: '14px',
-        WebkitUserSelect: 'none',
-        MozUserSelect: 'none',
-        msUserSelect: 'none',
-        userSelect: 'none',
-        display: 'flex',
-        alignItems: 'center',
-        gap: '10px',
-        position: 'relative',
+        Muted: 'var(--widget-subtext)'
       },
       input: {
         position: 'absolute',
@@ -52,11 +38,18 @@ export const theme = {
         height: 0,
         width: 0,
       },
+      container: {
+        display: 'flex',
+        alignItems: 'center',
+        cursor: 'pointer',
+        position: 'relative',
+        marginBottom: '8px',
+      },
       checkmark: {
         width: '15px',
         height: '15px',
         borderRadius: '50%',             
-        border: '1px solid #D0D5DD',    
+        border: '1px solid var(--border)',    
         backgroundColor: 'transparent',
         display: 'flex',
         alignItems: 'center',
@@ -65,11 +58,11 @@ export const theme = {
       },
       checkmarkChecked: {
         backgroundColor: 'transparent',  
-        border: '1px solid #3B82F6',
+        border: '1px solid var(--accent)',
       },
       checkmarkIcon: {
         width: '8px',
         height: '8px',
-        color: '#3B82F6',                // Blue checkmark
+        color: 'var(--accent)',                // Blue checkmark
       },
         }

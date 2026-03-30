@@ -7,12 +7,12 @@ import { COLOURS } from "./theme/colours";
 
 // widgets
 import WeatherCard from './components/wwidget/wwidget';
-import SymptomTracker from './components/wwidget/Symptoms';
-
 import WindWidget from './components/widgets/WindWidget';
 import HumidityWidget from './components/widgets/HumidityWidget';
 import UVWidget from './components/widgets/UVWidget';
 import SunsetWidget from './components/widgets/SunsetWidget';
+import SymptomTracker from './components/wwidget/Symptoms';
+
 
 // header components (location, time, theme toggle)
 import LocationBox from './components/header/LocationBox.jsx';
@@ -79,6 +79,7 @@ function App() {
       {/* widgets of the weather app */}
       <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '20px', marginBottom: '40px' }}>
         <WeatherCard city={displayCity || "London"} />
+        <SymptomTracker city={displayCity || "London"} />
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
           <SunsetWidget city={displayCity || "London"} />

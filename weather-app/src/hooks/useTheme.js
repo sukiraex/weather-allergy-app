@@ -28,6 +28,10 @@ const LIGHT = {
   '--widget-dot-inactive':  'rgba(255,255,255,0.38)',
   '--widget-icon':          '#5E9FCC',
   '--widget-sunset-subtext':'#ffffff',
+  '--symptom-text': 'black',
+  '--symptom-subtext': 'grey',
+  '--symptom-warning-bg': '#FFF7ED',
+  '--symptom-warning-border': '#FFD6A8',
 };
 
 const DARK = {
@@ -56,6 +60,10 @@ const DARK = {
   '--widget-dot-inactive':  'rgba(255,255,255,0.38)',
   '--widget-icon':          '#58a6ff',
   '--widget-sunset-subtext':'#e6edf3',
+  '--symptom-text': '#e6edf3',
+  '--symptom-subtext': '#8b949e',
+  '--symptom-warning-bg': '#2d2a1f',
+  '--symptom-warning-border': '#5d4a2a',
 };
 
 export function useTheme() {
