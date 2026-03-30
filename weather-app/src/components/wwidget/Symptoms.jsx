@@ -1,6 +1,8 @@
 import { usePollen } from "../../hooks/usePollen";
-import { theme } from "../../theme";
+import { theme } from "../../symptomtheme";
 import trackericon from './icons/trackericon.svg';
+import LogSymptoms from "./LogSymptoms";
+import { useState } from "react";
 
 
 
@@ -63,21 +65,31 @@ const isActive = (symptomThreshold, currentLabel) => {
 
  
 export default function SymptomTracker ({city = 'London'}) {
+
     const { overall: pollentoday} = usePollen(city);
+    const [isOpen, setIsOpen] = useState(false);
+    const [SavedRate, setSavedRate] = useState([0,0,0,0,0,0]);
+    const onSave = (current) => {
+      setSavedRate(current);
+      setIsOpen(false);
+
+
+    }
+
 
     return (
         <><div style={{...theme.card, width: '430px', height: '410px' , textAlign: 'center', flexDirection: 'column', position: 'relative'}}>
           
            <div style={{marginBottom: '40px', display: 'flex', justifyContent: 'space-between'}}>
            <h3 style={{margin: 0, textAlign: 'left', float: 'left', fontWeight: '500'}}>Symptom Tracker</h3>
-           <img src={trackericon} style={{width: '22px', height: '22px'}}/>
+           <img src={trackericon} style={{width: '22px', height: '22px'}} alt="calendar"/>
            </div>
 
         
 
            <div>
             {pollentoday && symptoms.map((i) => (
-              <div key={i.name} style={{marginBottom: '12px', fontSize: '14px' , color: isActive(i.threshold, pollentoday.label) ? 'black' : 'grey' , display: 'flex', justifyContent: 'space-between'}}>
+              <div key={i.name} style={{marginBottom: '12px', fontSize: '14px' , color: isActive(i.threshold, pollentoday.label) ? 'black' : 'grey' , display: 'flex' , justifyContent: 'space-between'}}>
                 
                 <label style={theme.container}>
                   <input type="checkbox" readOnly checked={ isActive(i.threshold, pollentoday.label)} style={theme.input}/>
@@ -99,8 +111,8 @@ export default function SymptomTracker ({city = 'London'}) {
                 {i.name}
 
                 </label>
-                <span style={{color: isActive(i.threshold, pollentoday.label) ? getsymcolour(getsymptomseverity(i.name, pollentoday.score)) : 'grey' }}>{isActive(i.threshold, pollentoday.label) ? getsymptomseverity(i.name, pollentoday.score) : '——'}</span>
-                
+                <span style={{color: isActive(i.threshold, pollentoday.label) ? getsymcolour(getsymptomseverity(i.name, pollentoday.score)) : 'grey' }}>{isActive(i.threshold, pollentoday.label) ? getsymptomseverity(i.name, pollentoday.score) : '—'}</span>
+
 
               </div>
             ))}
@@ -109,11 +121,15 @@ export default function SymptomTracker ({city = 'London'}) {
 
            </div>
            
-           <button style={{...theme.buttons, background: theme.buttons.buttongradient, width:'95%', height: '40px', borderRadius: '14px', position: 'absolute', bottom: '16px', left: '50%', transform: 'translateX(-50%)'}}>Log Symptoms</button>
 
-
-
-
+           <button onClick={() => setIsOpen(true) } style={{...theme.buttons, background: theme.buttons.buttongradient, width:'95%', height: '40px', borderRadius: '14px', position: 'absolute', bottom: '16px', left: '50%', transform: 'translateX(-50%)'}}>Log Symptoms</button>
+           {
+            isOpen && (
+              <div style={{  position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'rgba(0,0,0,0.5)', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                <LogSymptoms onClose={() => setIsOpen(false)} onSave={onSave} savedRate={SavedRate}/>
+              </div>
+            )
+           }
             
 
 

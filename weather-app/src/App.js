@@ -1,6 +1,6 @@
 import WeatherCard from './components/wwidget/wwidget';
 import SymptomTracker from './components/wwidget/Symptoms';
-import LogSymptoms from './components/wwidget/LogSymptoms';
+
 
 function App() {
   return (
@@ -10,10 +10,6 @@ function App() {
       <SymptomTracker city="London"/>
  
       </div>
-      <div>
-        <LogSymptoms />
-      </div>
-     
     </div></>
 
   );
