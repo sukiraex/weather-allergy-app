@@ -26,7 +26,7 @@ function PollenCard({ data }) {
         background: gradient,
         padding: "20px",
         borderRadius: "20px",
-        width: "320px",
+        width: "100%",
         color: "white"
       }}>
         Loading pollen...
@@ -39,7 +39,7 @@ function PollenCard({ data }) {
       background: gradient,
       padding: "20px",
       borderRadius: "20px",
-      width: "320px",
+      width: "100%",
       color: "white"
     }}>
 

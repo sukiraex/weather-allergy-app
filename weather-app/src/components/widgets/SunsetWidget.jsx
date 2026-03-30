@@ -141,11 +141,11 @@ export default function SunsetWidget({ city = "London" }) {
 
 const styles = {
   outerCard: {
-    width: "448px",
-    height: "200px",
+    width: "420px",
+    height: "170px",
     backgroundColor: "var(--widget-bg)",
     borderRadius: "30px",
-    padding: "18px",
+    padding: "14px",
     boxSizing: "border-box",
     boxShadow: "0 10px 20px rgba(0,0,0,0.12)",
     flexShrink: 0,
@@ -189,21 +189,21 @@ const styles = {
   },
 
   title: {
-    fontSize: "18px",
+    fontSize: "16px",
     fontWeight: "500",
     lineHeight: "1.2",
     whiteSpace: "nowrap",
   },
 
   time: {
-    fontSize: "34px",
+    fontSize: "30px",
     fontWeight: "700",
     lineHeight: "1",
     flexShrink: 0,
   },
 
   subtitle: {
-    fontSize: "15px",
+    fontSize: "13px",
     fontWeight: "400",
     color: "var(--widget-sunset-subtext)",
     marginTop: "2px",

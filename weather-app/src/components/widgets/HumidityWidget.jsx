@@ -37,11 +37,11 @@ export default function HumidityWidget({ city = "London" }) {
 
 const styles = {
   card: {
-    width: "140px",
-    height: "136px",
+    width: "100%",
+    height: "120px",
     backgroundColor: "var(--widget-bg)",
-    borderRadius: "24px",
-    boxShadow: "0 10px 18px rgba(0,0,0,0.12)",
+    borderRadius: "20px",
+    boxShadow: "0 8px 16px rgba(0,0,0,0.12)",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",

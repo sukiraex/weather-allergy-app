@@ -74,7 +74,7 @@ export default function SymptomTracker ({city = 'London', pollenLevel}) {
 
 
     return (
-        <><div style={{...theme.card, width: '430px', height: '410px' , textAlign: 'center', flexDirection: 'column', position: 'relative'}}>
+        <><div style={{...theme.card, width: '100%', height: '434px' , textAlign: 'center', flexDirection: 'column', position: 'relative', boxShadow: '0 10px 20px rgba(0,0,0,0.12)'}}>
           
            <div style={{marginBottom: '40px', display: 'flex', justifyContent: 'space-between'}}>
            <h3 style={{margin: 0, textAlign: 'left', float: 'left', fontWeight: '500', color: 'var(--symptom-text)'}}>Symptom Tracker</h3>
@@ -170,7 +170,7 @@ export default function SymptomTracker ({city = 'London', pollenLevel}) {
 
             {
             isOpen && (
-              <div style={{  position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'rgba(0,0,0,0.5)', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+              <div style={{  position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'rgba(0,0,0,0.12)', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                 <LogSymptoms onClose={() => setIsOpen(false)} onSave={onSave} savedRate={SavedRate} pollenLevel={pollenLevel} /> {/* passing state variables as props to logsymptoms so ratings can be saved and to allow pop up mechanisim */}
               </div>
             )

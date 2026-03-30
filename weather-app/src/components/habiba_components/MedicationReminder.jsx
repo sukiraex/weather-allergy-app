@@ -66,12 +66,11 @@ function MedicationReminder({ pollenLevel }) {
     <div style={{
       background: "var(--widget-bg)",
       padding: "18px",
-      borderRadius: "25px",
+      borderRadius: "24px",
       width: "100%",
-      maxWidth: "320px",
       color: "var(--widget-text)",
       alignSelf: "start",
-      boxShadow: "0 8px 20px rgba(0,0,0,0.1)",
+      boxShadow: "0 4px 24px rgba(0,0,0,0.08)",
       fontFamily: "'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif"
     }}>
 
@@ -89,7 +88,7 @@ function MedicationReminder({ pollenLevel }) {
           }}>
             💊
           </div>
-          <h3 style={{ margin: 0, fontSize: "16px", fontFamily: "inherit" }}>Medication</h3>
+          <h3 style={{ margin: 0, fontSize: "16px", fontWeight: "500", color: "var(--widget-text)", fontFamily: "inherit" }}>Medication</h3>
         </div>
 
         <button
@@ -175,14 +174,16 @@ function MedicationReminder({ pollenLevel }) {
         <div style={{
           background: "var(--symptom-warning-bg)",
           border: "1px solid var(--symptom-warning-border)",
-          padding: "12px",
           borderRadius: "14px",
           marginTop: "10px"
         }}>
-          <p style={{ margin: 0, fontSize: "12px" }}>🔔 Next Dose</p>
-          <p style={{ margin: 0 }}>
-            {nextDose.name} at {formatTime(nextDose.time)}
-          </p>
+          <div style={{padding: "10px", textAlign: "left"}}>
+            <div style={{ display: "flex", alignItems: "flex-start", gap: "6px", marginBottom: "4px" }}>
+              <span style={{fontSize: "14px"}}>🔔</span>
+              <label style={{fontSize: "12px", fontWeight: "600", color: "var(--widget-text)"}}>Next Dose</label>
+            </div>
+            <label style={{fontSize: "12px", fontWeight: "400", marginLeft: "20px", color: "var(--widget-text)"}}>The {nextDose.name} at {formatTime(nextDose.time)}</label>
+          </div>
         </div>
       ) : (
         <div style={{
