@@ -1,6 +1,23 @@
 import React, { useState } from "react";
 
-function MedicationReminder() {
+function MedicationReminder({ pollenLevel }) {
+  const getPollenGradient = (level) => {
+    switch (level) {
+      case 'Low':
+        return 'linear-gradient(90deg, #59C08D, #4CAF50)';
+      case 'Medium':
+      case 'Moderate':
+        return 'linear-gradient(90deg, #c1cb45, #FFC107)';
+      case 'High':
+      case 'Very High':
+      case 'Severe':
+        return 'linear-gradient(90deg, #ED8D20, #EA7B7E, #CA448B)';
+      default:
+        return 'linear-gradient(90deg, #ED8D20, #EA7B7E, #CA448B)';
+    }
+  };
+
+  const gradient = getPollenGradient(pollenLevel);
   const [meds, setMeds] = useState([
     { id: 1, name: "Cetirizine", dose: "10mg", time: "08:00", taken: true },
     { id: 2, name: "Nasal Spray", dose: "2 sprays", time: "08:30", taken: true },
@@ -47,14 +64,15 @@ function MedicationReminder() {
 
   return (
     <div style={{
-      background: "#b8c2cc",
+      background: "var(--widget-bg)",
       padding: "18px",
       borderRadius: "25px",
       width: "100%",
       maxWidth: "320px",
-      color: "#222",
+      color: "var(--widget-text)",
       alignSelf: "start",
-      boxShadow: "0 8px 20px rgba(0,0,0,0.1)"
+      boxShadow: "0 8px 20px rgba(0,0,0,0.1)",
+      fontFamily: "'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif"
     }}>
 
       {/* header */}
@@ -71,13 +89,13 @@ function MedicationReminder() {
           }}>
             💊
           </div>
-          <h3 style={{ margin: 0, fontSize: "16px" }}>Medication</h3>
+          <h3 style={{ margin: 0, fontSize: "16px", fontFamily: "inherit" }}>Medication</h3>
         </div>
 
         <button
           onClick={() => setShowForm(true)}
           style={{
-            background: "#ff7a18",
+            background: gradient,
             border: "none",
             borderRadius: "50%",
             width: "34px",
@@ -105,7 +123,7 @@ function MedicationReminder() {
       }}>
         <div style={{
           width: `${progress}%`,
-          background: "linear-gradient(90deg, #ff7a18, #ffb347)",
+          background: gradient,
           height: "100%"
         }} />
       </div>
@@ -113,7 +131,7 @@ function MedicationReminder() {
       {/* list */}
       {meds.map(m => (
         <div key={m.id} style={{
-          background: "#d3dbe3",
+          background: "var(--bg-input)",
           padding: "12px",
           borderRadius: "14px",
           marginBottom: "10px",
@@ -155,7 +173,7 @@ function MedicationReminder() {
       {/* next dose */}
       {nextDose && (
         <div style={{
-          background: "#f5e6d8",
+          background: "var(--bg-input)",
           padding: "12px",
           borderRadius: "14px",
           marginTop: "10px"
@@ -182,7 +200,7 @@ function MedicationReminder() {
           zIndex: 999
         }}>
           <div style={{
-            background: '#f3f4f6',
+            background: 'var(--bg-card)',
             borderRadius: '20px',
             width: '100%',
             maxWidth: '420px',
@@ -194,7 +212,7 @@ function MedicationReminder() {
 
             {/* header */}
             <div style={{
-              background: "linear-gradient(135deg, #ff7a18, #ff4da6)",
+              background: gradient,
               padding: "16px",
               color: "white",
               display: "flex",
@@ -229,15 +247,15 @@ function MedicationReminder() {
             }}>
               <label style={{ fontSize: "13px", opacity: 0.8 }}>Medication Name</label>
               <input value={name} onChange={e => setName(e.target.value)} placeholder="e.g., Cetirizine, Nasal Spray"
-                style={{ padding: '14px', borderRadius: '14px', border: "none", background: '#dbe3ec' }} />
+                style={{ padding: '14px', borderRadius: '14px', border: "none", background: 'var(--bg-input)' }} />
 
               <label style={{ fontSize: "13px", opacity: 0.8 }}>Dosage</label>
               <input value={dose} onChange={e => setDose(e.target.value)} placeholder="e.g., 10mg, 2 sprays, 1 drop"
-                style={{ padding: '14px', borderRadius: '14px', border: "none", background: '#dbe3ec' }} />
+                style={{ padding: '14px', borderRadius: '14px', border: "none", background: 'var(--bg-input)' }} />
 
               <label style={{ fontSize: "13px", opacity: 0.8 }}>Time</label>
               <input type="time" value={time} onChange={e => setTime(e.target.value)}
-                style={{ padding: '14px', borderRadius: '14px', border: "none", background: '#dbe3ec' }} />
+                style={{ padding: '14px', borderRadius: '14px', border: "none", background: 'var(--bg-input)' }} />
 
               <div>
                 <p style={{ fontSize: '13px', marginBottom: '10px' }}>
@@ -257,7 +275,7 @@ function MedicationReminder() {
                         padding: '10px',
                         borderRadius: '12px',
                         border: 'none',
-                        background: '#dbe3ec',
+                        background: 'var(--bg-input)',
                         cursor: 'pointer'
                       }}
                     >
@@ -280,7 +298,7 @@ function MedicationReminder() {
                 padding: '12px',
                 borderRadius: '14px',
                 border: "none",
-                background: '#e5e7eb'
+                background: 'var(--bg-input)'
               }}>
                 Cancel
               </button>
@@ -290,7 +308,7 @@ function MedicationReminder() {
                 padding: '12px',
                 borderRadius: '14px',
                 border: "none",
-                background: 'linear-gradient(90deg, #ff7a18, #ffb347)',
+                background: gradient,
                 color: 'white'
               }}>
                 Add Medication

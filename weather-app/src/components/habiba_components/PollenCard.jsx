@@ -2,10 +2,28 @@ import React from "react";
 
 function PollenCard({ data }) {
 
+  const getPollenGradient = (level) => {
+    switch (level) {
+      case 'Low':
+        return 'linear-gradient(135deg, #59C08D, #4CAF50)';
+      case 'Medium':
+      case 'Moderate':
+        return 'linear-gradient(135deg, #c1cb45, #FFC107)';
+      case 'High':
+      case 'Very High':
+      case 'Severe':
+        return 'linear-gradient(135deg, #f7971e, #f857a6)';
+      default:
+        return 'linear-gradient(135deg, #f7971e, #f857a6)';
+    }
+  };
+
+  const gradient = data && data.overall ? getPollenGradient(data.overall.label) : 'linear-gradient(135deg, #f7971e, #f857a6)';
+
   if (!data || !data.overall || !data.types) {
     return (
       <div style={{
-        background: "linear-gradient(135deg, #f7971e, #f857a6)",
+        background: gradient,
         padding: "20px",
         borderRadius: "20px",
         width: "320px",
@@ -16,9 +34,9 @@ function PollenCard({ data }) {
     );
   }
 
-  return (
+    return (
     <div style={{
-      background: "linear-gradient(135deg, #f7971e, #f857a6)",
+      background: gradient,
       padding: "20px",
       borderRadius: "20px",
       width: "320px",

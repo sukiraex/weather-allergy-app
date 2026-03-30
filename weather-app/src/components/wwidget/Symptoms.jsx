@@ -41,7 +41,25 @@ const isActive = (currentLabel) => {
 
 
  
-export default function SymptomTracker ({city = 'London'}) {
+export default function SymptomTracker ({city = 'London', pollenLevel}) {
+
+    const getPollenGradient = (level) => {
+        switch (level) {
+            case 'Low':
+                return 'linear-gradient(to right, #59C08D, #4CAF50)';
+            case 'Medium':
+            case 'Moderate':
+                return 'linear-gradient(to right, #c1cb45, #FFC107)';
+            case 'High':
+            case 'Very High':
+            case 'Severe':
+                return 'linear-gradient(to right, #ED8D20, #EA7B7E, #CA448B)';
+            default:
+                return 'linear-gradient(to right, #ED8D20, #EA7B7E, #CA448B)';
+        }
+    };
+
+    const gradient = getPollenGradient(pollenLevel);
 
     const [isOpen, setIsOpen] = useState(false); //checks if pop up is open
     const [SavedRate, setSavedRate] = useState([0,0,0,0,0,0]); //will be used to save the user's rating on the pop up
@@ -143,7 +161,7 @@ export default function SymptomTracker ({city = 'London'}) {
           
             {/* onclick, isOpen set to true */}
            <div>
-           <button onClick={() => setIsOpen(true) } style={{...theme.buttons, background: theme.buttons.buttongradient, width:'95%', height: '40px', borderRadius: '14px'}}>Log Symptoms</button>
+           <button onClick={() => setIsOpen(true) } style={{...theme.buttons, background: gradient, width:'95%', height: '40px', borderRadius: '14px'}}>Log Symptoms</button>
             </div>
 
             </div>
@@ -153,7 +171,7 @@ export default function SymptomTracker ({city = 'London'}) {
             {
             isOpen && (
               <div style={{  position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'rgba(0,0,0,0.5)', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-                <LogSymptoms onClose={() => setIsOpen(false)} onSave={onSave} savedRate={SavedRate} /> {/* passing state variables as props to logsymptoms so ratings can be saved and to allow pop up mechanisim */}
+                <LogSymptoms onClose={() => setIsOpen(false)} onSave={onSave} savedRate={SavedRate} pollenLevel={pollenLevel} /> {/* passing state variables as props to logsymptoms so ratings can be saved and to allow pop up mechanisim */}
               </div>
             )
            }

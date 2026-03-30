@@ -12,7 +12,25 @@ const severity = ['None','Low', 'Moderate', 'High', 'Very High','Severe']
 
 
 
-export default function LogSymptoms({ onClose, onSave, savedRate}){
+export default function LogSymptoms({ onClose, onSave, savedRate, pollenLevel}){
+
+    const getPollenGradient = (level) => {
+        switch (level) {
+            case 'Low':
+                return 'linear-gradient(to right, #59C08D, #4CAF50)';
+            case 'Medium':
+            case 'Moderate':
+                return 'linear-gradient(to right, #c1cb45, #FFC107)';
+            case 'High':
+            case 'Very High':
+            case 'Severe':
+                return 'linear-gradient(to right, #ED8D20, #EA7B7E, #CA448B)';
+            default:
+                return 'linear-gradient(to right, #ED8D20, #EA7B7E, #CA448B)';
+        }
+    };
+
+    const gradient = getPollenGradient(pollenLevel);
 
     console.log('savedRate:', savedRate);
 
@@ -46,7 +64,7 @@ export default function LogSymptoms({ onClose, onSave, savedRate}){
     return (
         
         <div style={{...theme.card, backgroundColor: 'var(--widget-bg)' , overflow: 'hidden', padding: 0, width: '380px', textAlign: 'left'}}> {/* clip to div */}
-            <div style={{background: theme.buttons.buttongradient, padding: '24px 24px', display: 'flex', gap: '1px', maxWidth: '100%', color: '#FFFFFF', position: 'relative'   }}>
+            <div style={{background: gradient, padding: '24px 24px', display: 'flex', gap: '1px', maxWidth: '100%', color: '#FFFFFF', position: 'relative'   }}>
 
                 <img src={circle} alt="circle"  style={{width: '45px', height: '45px'}}/>
                 <div style={{flexDirection: 'column', display:'flex', marginLeft: '10px'}}>
@@ -144,7 +162,7 @@ export default function LogSymptoms({ onClose, onSave, savedRate}){
                 {/* closes without saving */}
             <button onClick={onClose} style={{...theme.buttons, background: 'var(--bg-input)', width:'48%', height: '40px', borderRadius: '14px', color:'var(--widget-text)' }}>Cancel</button>
             {/* saves rating  */}
-            <button onClick={ () => onSave(rating)} style={{...theme.buttons, background: theme.buttons.buttongradient, width:'48%', height: '40px', borderRadius: '14px' }}>Log Symptoms</button>
+            <button onClick={ () => onSave(rating)} style={{...theme.buttons, background: gradient, width:'48%', height: '40px', borderRadius: '14px' }}>Log Symptoms</button>
             </div>
            
         </div>

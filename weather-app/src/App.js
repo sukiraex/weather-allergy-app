@@ -93,7 +93,16 @@ function App() {
       {/* widgets of the weather app */}
       <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '20px', marginBottom: '40px' }}>
         <WeatherCard city={displayCity || "London"} />
-        <SymptomTracker city={displayCity || "London"} />
+        <SymptomTracker city={displayCity || "London"} pollenLevel={overall?.label} />
+        {/*pollen and medication*/}
+        <PollenCard
+          data={{
+            overall,
+            types,
+            trendLabel
+          }}
+        />
+        <MedicationReminder pollenLevel={overall?.label} />
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
           <SunsetWidget city={displayCity || "London"} />
