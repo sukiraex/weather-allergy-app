@@ -10,7 +10,7 @@
   border: 1px solid var(--border);
   background: var(--bg-location);
   flex-wrap: wrap;
-  font-family: monospace;
+  font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 /* light/dark toggle button */

@@ -173,7 +173,8 @@ function MedicationReminder({ pollenLevel }) {
       {/* next dose */}
       {nextDose && (
         <div style={{
-          background: "var(--bg-input)",
+          background: "var(--symptom-warning-bg)",
+          border: "1px solid var(--symptom-warning-border)",
           padding: "12px",
           borderRadius: "14px",
           marginTop: "10px"

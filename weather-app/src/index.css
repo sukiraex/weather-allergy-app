@@ -16,6 +16,7 @@ code {
   padding: 16px;
   border-radius: 18px;
   width: 300px;
+  font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 /* message above search */

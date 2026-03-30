@@ -4,7 +4,7 @@ export default function LocalTime({ localTime, displayCity }) {
   if (!localTime) {
     return (
       <div style={{ textAlign: 'center' }}>
-        <p style={{ margin: 0, fontSize: '13px', color: 'var(--text-secondary)' }}>
+      <p style={{ margin: 0, fontSize: '13px', color: 'var(--text-secondary)', fontFamily: "'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif" }}>
           {displayCity ? `Loading time for ${displayCity}...` : 'No location set'}
         </p>
       </div>
@@ -17,10 +17,10 @@ export default function LocalTime({ localTime, displayCity }) {
 
   return (
     <div style={{ textAlign: 'center' }}>
-      <p style={{ margin: 0, fontSize: '22px', fontWeight: '600', color: 'var(--text-primary)', letterSpacing: '0.02em' }}>
+      <p style={{ margin: 0, fontSize: '22px', fontWeight: '600', color: 'var(--text-primary)', letterSpacing: '0.02em', fontFamily: "'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif" }}>
         {timePart}
       </p>
-      <p style={{ margin: 0, fontSize: '13px', color: 'var(--text-secondary)' }}>
+      <p style={{ margin: 0, fontSize: '13px', color: 'var(--text-secondary)', fontFamily: "'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif" }}>
         {datePart} · {displayCity}
       </p>
     </div>
