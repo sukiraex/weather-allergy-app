@@ -170,8 +170,8 @@ function MedicationReminder({ pollenLevel }) {
         </div>
       ))}
 
-      {/* next dose */}
-      {nextDose && (
+      {/* next dose or all taken message */}
+      {nextDose ? (
         <div style={{
           background: "var(--symptom-warning-bg)",
           border: "1px solid var(--symptom-warning-border)",
@@ -182,6 +182,19 @@ function MedicationReminder({ pollenLevel }) {
           <p style={{ margin: 0, fontSize: "12px" }}>🔔 Next Dose</p>
           <p style={{ margin: 0 }}>
             {nextDose.name} at {formatTime(nextDose.time)}
+          </p>
+        </div>
+      ) : (
+        <div style={{
+          background: "var(--bg-input)",
+          border: "2px solid #4CAF50",
+          padding: "12px",
+          borderRadius: "14px",
+          marginTop: "10px"
+        }}>
+          <p style={{ margin: 0, fontSize: "12px", color: "#4CAF50" }}>✓ All medications taken</p>
+          <p style={{ margin: 0, color: "var(--widget-text)", fontSize: "13px" }}>
+            No more medication today
           </p>
         </div>
       )}
@@ -201,7 +214,7 @@ function MedicationReminder({ pollenLevel }) {
           zIndex: 999
         }}>
           <div style={{
-            background: 'var(--bg-card)',
+            background: 'var(--widget-bg)',
             borderRadius: '20px',
             width: '100%',
             maxWidth: '420px',
@@ -244,19 +257,20 @@ function MedicationReminder({ pollenLevel }) {
               flexDirection: "column",
               gap: "18px",
               flex: 1,
-              overflowY: 'auto'
+              overflowY: 'auto',
+              color: 'var(--widget-text)'
             }}>
               <label style={{ fontSize: "13px", opacity: 0.8 }}>Medication Name</label>
               <input value={name} onChange={e => setName(e.target.value)} placeholder="e.g., Cetirizine, Nasal Spray"
-                style={{ padding: '14px', borderRadius: '14px', border: "none", background: 'var(--bg-input)' }} />
+                style={{ padding: '14px', borderRadius: '14px', border: "none", background: 'var(--bg-input)', color: 'var(--widget-text)' }} />
 
               <label style={{ fontSize: "13px", opacity: 0.8 }}>Dosage</label>
               <input value={dose} onChange={e => setDose(e.target.value)} placeholder="e.g., 10mg, 2 sprays, 1 drop"
-                style={{ padding: '14px', borderRadius: '14px', border: "none", background: 'var(--bg-input)' }} />
+                style={{ padding: '14px', borderRadius: '14px', border: "none", background: 'var(--bg-input)', color: 'var(--widget-text)' }} />
 
               <label style={{ fontSize: "13px", opacity: 0.8 }}>Time</label>
               <input type="time" value={time} onChange={e => setTime(e.target.value)}
-                style={{ padding: '14px', borderRadius: '14px', border: "none", background: 'var(--bg-input)' }} />
+                style={{ padding: '14px', borderRadius: '14px', border: "none", background: 'var(--bg-input)', color: 'var(--widget-text)' }} />
 
               <div>
                 <p style={{ fontSize: '13px', marginBottom: '10px' }}>
@@ -277,6 +291,7 @@ function MedicationReminder({ pollenLevel }) {
                         borderRadius: '12px',
                         border: 'none',
                         background: 'var(--bg-input)',
+                        color: 'var(--widget-text)',
                         cursor: 'pointer'
                       }}
                     >
@@ -292,14 +307,16 @@ function MedicationReminder({ pollenLevel }) {
               display: "flex",
               gap: "12px",
               padding: '16px',
-              borderTop: '1px solid #eee'
+              borderTop: '1px solid var(--bg-input)'
             }}>
               <button onClick={() => setShowForm(false)} style={{
                 flex: 1,
                 padding: '12px',
                 borderRadius: '14px',
                 border: "none",
-                background: 'var(--bg-input)'
+                background: 'var(--bg-input)',
+                color: 'var(--widget-text)',
+                cursor: 'pointer'
               }}>
                 Cancel
               </button>
@@ -310,7 +327,8 @@ function MedicationReminder({ pollenLevel }) {
                 borderRadius: '14px',
                 border: "none",
                 background: gradient,
-                color: 'white'
+                color: 'white',
+                cursor: 'pointer'
               }}>
                 Add Medication
               </button>
