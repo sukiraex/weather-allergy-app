@@ -7,6 +7,8 @@ import { COLOURS } from "./theme/colours";
 
 // widgets
 import WeatherCard from './components/wwidget/wwidget';
+import SymptomTracker from './components/wwidget/Symptoms';
+
 import WindWidget from './components/widgets/WindWidget';
 import HumidityWidget from './components/widgets/HumidityWidget';
 import UVWidget from './components/widgets/UVWidget';
