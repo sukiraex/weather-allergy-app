@@ -43,6 +43,7 @@ function PollenCard({ data }) {
       color: "white",
       fontFamily: "'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif",
       height: "252px",   // add this
+      boxShadow: "0 10px 18px rgba(0,0,0,0.12)",
     }}>
 
       {/* header */}

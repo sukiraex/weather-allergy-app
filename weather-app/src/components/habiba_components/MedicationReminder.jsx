@@ -66,7 +66,7 @@ function MedicationReminder({ pollenLevel }) {
       hight: "600px",
       color: "var(--widget-text)",
       alignSelf: "start",
-      boxShadow: "0 4px 24px rgba(0,0,0,0.08)",
+      boxShadow: "0 10px 18px rgba(0,0,0,0.12)",
       fontFamily: "'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif"
     }}>
 
