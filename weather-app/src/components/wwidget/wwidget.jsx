@@ -74,7 +74,7 @@ export default function WeatherCard({ city = 'London' }) {
         {hourly.map((h, i) => (
           <div key={i} style={styles.hourlyItem}>
             <span style={styles.hourlyTime}>{h.time}</span>
-            <WeatherIcon icon={h.icon} size={28} />
+            <WeatherIcon icon={h.icon} size={39} />
             <span style={styles.hourlyTemp}>{h.temperature}°</span>
           </div>
         ))}
@@ -141,7 +141,7 @@ const styles = {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'flex-start',
-    marginBottom: '16px',
+    marginBottom: '12px',
   },
   currentLeft: {
     display: 'flex',
@@ -172,7 +172,7 @@ const styles = {
     marginTop: '4px',
   },
   hiLow: {
-    fontSize: '13px',
+    fontSize: '12px',
     color: colors.textSecondary,
     marginTop: '2px',
   },
@@ -180,7 +180,7 @@ const styles = {
     display: 'flex',
     justifyContent: 'space-between',
     padding: '10px 0px',
-    marginBottom: '16px',
+    marginBottom: '10px',
   },
   hourlyItem: {
     display: 'flex',
