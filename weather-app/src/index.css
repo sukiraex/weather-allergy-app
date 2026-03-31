@@ -19,6 +19,14 @@ code {
   font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
+/* Mobile responsive adjustments */
+@media (max-width: 768px) {
+  .location-container {
+    width: 100%;
+    max-width: 300px;
+  }
+}
+
 /* message above search */
 .location-message {
   font-size: 12px;

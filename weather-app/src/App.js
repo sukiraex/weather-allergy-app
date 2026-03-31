@@ -24,6 +24,9 @@ import { useLocalTime } from "./hooks/useLocalTime";
 
 import PollenCard from './components/habiba_components/PollenCard.jsx';
 import MedicationReminder from './components/habiba_components/MedicationReminder.jsx';
+
+// Import responsive layout styles
+import './AppLayout.css';
 function App() {
   const [locationConfirmed, setLocationConfirmed] = useState(false); // whether the user has confirmed their location (either by allowing geolocation or selecting a suggestion)
  
@@ -58,17 +61,10 @@ function App() {
   } = pollen;
 
   return (
-    <div style={{
-      padding: '20px',
-      fontFamily: 'monospace',
-      backgroundColor: 'var(--bg-primary)',
-      color: 'var(--text-primary)',
-      minHeight: '100vh',
-      transition: 'background-color 0.3s, color 0.3s'
-    }}>
+    <div className="app-container">
  
       {/* header (location, time, theme toggle) */}
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '12px', marginBottom: '10px' }}>
+      <div className="header">
  
         <LocationBox
           locationConfirmed={locationConfirmed}
@@ -90,16 +86,16 @@ function App() {
  
       </div>
  
-      {/* widgets of the weather app - 3 column layout */}
-      <div style={{ display: 'grid', gridTemplateColumns: '420px 450px 420px', gridTemplateRows: '1fr 1fr', rowGap: '30px', columnGap: '60px', justifyContent: 'center', margin: '0 auto 40px', minHeight: '840px' }}>
+      {/* widgets of the weather app - responsive grid layout */}
+      <div className="widgets-grid">
         
-        {/* Left column - Weather Card spans 2 rows */}
-        <div style={{ gridRow: 'span 2', height: '100%' }}>
+        {/* Left column - Weather Card spans 2 rows on desktop */}
+        <div className="left-column">
           <WeatherCard city={displayCity || "London"} />
         </div>
 
         {/* Center column - Pollen + Symptom stack */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', height: '100%' }}>
+        <div className="center-column">
           <PollenCard
             data={{
               overall,
@@ -114,10 +110,10 @@ function App() {
         
 
         {/* Right bottom - Sunset and Small Widgets */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '16.6px', height: '100%' }}>
+        <div className="right-column">
           <MedicationReminder pollenLevel={overall?.label} />
           <SunsetWidget city={displayCity || "London"} />
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '18px', width: '457px' }}>
+          <div className="small-widgets-grid">
             <WindWidget city={displayCity || "London"} />
             <HumidityWidget city={displayCity || "London"} />
             <UVWidget city={displayCity || "London"} />

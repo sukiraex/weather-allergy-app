@@ -74,7 +74,7 @@ export default function SymptomTracker ({city = 'London', pollenLevel}) {
 
 
     return (
-        <><div style={{...theme.card, width: '100%', height: '434px' , textAlign: 'center', flexDirection: 'column', position: 'relative', boxShadow: '0 10px 20px rgba(0,0,0,0.12)'}}>
+        <><div style={{...theme.card, width: '100%', minHeight: '434px' , textAlign: 'center', flexDirection: 'column', position: 'relative', boxShadow: '0 10px 20px rgba(0,0,0,0.12)'}}>
           
            <div style={{marginBottom: '40px', display: 'flex', justifyContent: 'space-between'}}>
            <h3 style={{margin: 0, textAlign: 'left', float: 'left', fontSize: "18px", fontWeight: '500', fontFamily: "inherit", color: 'var(--symptom-text)'}}>Symptom Tracker</h3>

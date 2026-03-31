@@ -141,7 +141,7 @@ export default function SunsetWidget({ city = "London" }) {
 
 const styles = {
   outerCard: {
-    width: "457px",
+    width: "100%",  // changed from fixed 457px to 100% for responsiveness
     height: "170px",
     backgroundColor: "var(--widget-bg)",
     borderRadius: "30px",

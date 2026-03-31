@@ -1,0 +1,134 @@
+/* App Layout Styles - Responsive */
+
+.app-container {
+  padding: 20px;
+  font-family: 'monospace';
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  min-height: 100vh;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.widgets-grid {
+  display: grid;
+  grid-template-columns: 420px 450px 420px;
+  grid-template-rows: 1fr 1fr;
+  row-gap: 30px;
+  column-gap: 60px;
+  justify-content: center;
+  margin: 0 auto 40px;
+  min-height: 840px;
+}
+
+.left-column {
+  grid-row: span 2;
+  height: 100%;
+}
+
+.center-column {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  height: 100%;
+}
+
+.right-column {
+  display: flex;
+  flex-direction: column;
+  gap: 16.6px;
+  height: 100%;
+}
+
+.small-widgets-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  width: 457px;
+}
+
+/* Tablet styles */
+@media (max-width: 1200px) {
+  .widgets-grid {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto auto;
+    column-gap: 30px;
+    row-gap: 20px;
+    min-height: auto;
+  }
+
+  .left-column {
+    grid-row: span 1;
+    grid-column: 1 / -1;
+  }
+
+  .center-column {
+    grid-row: span 1;
+  }
+
+  .right-column {
+    grid-row: span 1;
+  }
+
+  .small-widgets-grid {
+    width: 100%;
+  }
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+  .app-container {
+    padding: 10px;
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+
+  .widgets-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    row-gap: 20px;
+    column-gap: 0;
+    margin: 0 0 20px;
+  }
+
+  .left-column,
+  .center-column,
+  .right-column {
+    grid-row: span 1;
+    grid-column: 1;
+  }
+
+  .center-column,
+  .right-column {
+    height: auto;
+  }
+
+  .small-widgets-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    width: 100%;
+  }
+}
+
+/* Small mobile styles */
+@media (max-width: 480px) {
+  .app-container {
+    padding: 5px;
+  }
+
+  .header {
+    margin-bottom: 5px;
+  }
+}

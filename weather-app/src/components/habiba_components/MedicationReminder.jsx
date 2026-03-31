@@ -63,7 +63,7 @@ function MedicationReminder({ pollenLevel }) {
       padding: "18px",
       borderRadius: "24px",
       width: "100%",
-      hight: "600px",
+      minHeight: "200px",  // changed from fixed height to minHeight for responsiveness
       color: "var(--widget-text)",
       alignSelf: "start",
       boxShadow: "0 10px 18px rgba(0,0,0,0.12)",

@@ -42,7 +42,7 @@ function PollenCard({ data }) {
       width: "100%",
       color: "white",
       fontFamily: "'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif",
-      height: "252px",   // add this
+      minHeight: "252px",   // changed from height to minHeight for responsiveness
       boxShadow: "0 10px 18px rgba(0,0,0,0.12)",
     }}>
 

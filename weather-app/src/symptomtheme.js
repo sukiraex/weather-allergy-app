@@ -17,7 +17,7 @@ export const theme = {
         backgroundColor: 'var(--widget-bg)',
         borderRadius: '24px',
         padding: '20px',
-        width: '340px',
+        width: '100%',  // changed from fixed 340px to 100% for responsiveness
         fontFamily: "'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif",
         boxShadow: '0 4px 24px rgba(0,0,0,0.08)',
       },
