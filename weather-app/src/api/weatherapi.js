@@ -53,6 +53,7 @@ export const fetchCurrentWeather = async (location) => {
       icon: data.weather[0].icon,
       sunrise: data.sys.sunrise,
       sunset: data.sys.sunset,
+      timezoneOffset: data.timezone ?? 0,
       uvIndex: null,
     };
   } catch (error) {

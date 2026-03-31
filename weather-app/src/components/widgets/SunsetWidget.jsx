@@ -5,14 +5,15 @@ export default function SunsetWidget({ city = "London" }) {
   const { current, daily, loading, error } = useWeather(city);
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  const sunsetDate = current?.sunset
-    ? new Date(current.sunset)
-    : null;
-
-  const sunsetTime = sunsetDate
-    ? `${String(sunsetDate.getHours()).padStart(2, "0")}:${String(
-        sunsetDate.getMinutes()
-      ).padStart(2, "0")}`
+  const sunsetTime = current?.sunset
+    ? (() => {
+        const timezoneOffset = current?.timezoneOffset ?? 0;
+        // OpenWeather sunset is Unix seconds (UTC). Shift by city timezone offset.
+        const cityLocalDate = new Date((current.sunset + timezoneOffset) * 1000);
+        return `${String(cityLocalDate.getUTCHours()).padStart(2, "0")}:${String(
+          cityLocalDate.getUTCMinutes()
+        ).padStart(2, "0")}`;
+      })()
     : "--:--";
 
   // Get today's rain chance
