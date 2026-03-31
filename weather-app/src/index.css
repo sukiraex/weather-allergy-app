@@ -15,8 +15,9 @@ code {
   background: var(--bg-location);
   padding: 16px;
   border-radius: 18px;
-  width: 300px;
+  width: min(300px, 100%);
   font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+  box-sizing: border-box;
 }
 
 /* message above search */
@@ -85,4 +86,15 @@ code {
 
 .edit-location-button:hover {
   background: var(--accent-hover);
+}
+
+@media (max-width: 900px) {
+  .location-container {
+    width: 100%;
+    padding: 10px;
+    border-radius: 16px;
+  }
+  .location-message {
+    margin-bottom: 6px;
+  }
 }

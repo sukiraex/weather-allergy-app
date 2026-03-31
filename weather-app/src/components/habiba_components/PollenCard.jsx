@@ -10,11 +10,12 @@ function PollenCard({ data }) {
       case 'Moderate':
         return 'linear-gradient(135deg, #c1cb45, #FFC107)';
       case 'High':
+        return 'linear-gradient(135deg, #F4A021, #EA7B7E, #CA448B)';
       case 'Very High':
       case 'Severe':
-        return 'linear-gradient(135deg, #f7971e, #f857a6)';
+        return 'linear-gradient(135deg, #D96B6E, #CA448B)';
       default:
-        return 'linear-gradient(135deg, #f7971e, #f857a6)';
+        return 'linear-gradient(135deg, #D96B6E, #CA448B)';
     }
   };
 
@@ -27,6 +28,8 @@ function PollenCard({ data }) {
         padding: "20px",
         borderRadius: "20px",
         width: "100%",
+        maxWidth: "100%",
+        boxSizing: "border-box",
         color: "white"
       }}>
         Loading pollen...
@@ -40,9 +43,11 @@ function PollenCard({ data }) {
       padding: "20px",
       borderRadius: "20px",
       width: "100%",
+      maxWidth: "100%",
+      boxSizing: "border-box",
       color: "white",
       fontFamily: "'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif",
-      height: "252px",   // add this
+      height: "280px",
       boxShadow: "0 10px 18px rgba(0,0,0,0.12)",
     }}>
 

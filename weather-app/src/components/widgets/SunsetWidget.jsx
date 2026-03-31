@@ -15,14 +15,11 @@ export default function SunsetWidget({ city = "London" }) {
       ).padStart(2, "0")}`
     : "--:--";
 
-  // Get today's and tomorrow's rain chance
+  // Get today's rain chance
   const todayRainChance = daily && daily[0] ? daily[0].rainChance || 0 : 0;
-  const tomorrowRainChance = daily && daily[1] ? daily[1].rainChance || 0 : 0;
-  
+
   // Check if today has no precipitation
   const isNoPrecipitationToday = todayRainChance < 10;
-  // Find next no precipitation day
-  const nextNoPrecipDay = daily ? daily.find(day => day.rainChance < 10) : null;
 
   const slides = [
     {
@@ -141,7 +138,7 @@ export default function SunsetWidget({ city = "London" }) {
 
 const styles = {
   outerCard: {
-    width: "457px",
+    width: "100%",
     height: "170px",
     backgroundColor: "var(--widget-bg)",
     borderRadius: "30px",

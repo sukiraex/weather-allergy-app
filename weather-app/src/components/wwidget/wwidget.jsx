@@ -36,24 +36,24 @@ const WeatherIcon = ({ icon, size = 40 }) => (
   />
 );
 
-export default function WeatherCard({ city = 'London' }) {
+export default function WeatherCard({ city = 'London', cardHeight = 'auto' }) {
   const { current, hourly, daily, loading: wLoading, error: wError } = useWeather(city);
-  const { daily: pollenDaily, loading: pLoading } = usePollen(city);
+  const { overall: pollenOverall, daily: pollenDaily, loading: pLoading } = usePollen(city);
 
   if (wLoading || pLoading) return (
-    <div style={styles.card}>
+    <div style={{ ...styles.card, height: cardHeight }}>
       <p style={{ color: colors.textSecondary, padding: '20px' }}>Loading...</p>
     </div>
   );
 
   if (wError) return (
-    <div style={styles.card}>
+    <div style={{ ...styles.card, height: cardHeight }}>
       <p style={{ color: '#ef4444', padding: '20px' }}>{wError}</p>
     </div>
   );
 
   return (
-    <div style={styles.card}>
+    <div style={{ ...styles.card, height: cardHeight }}>
 
       {/* Current Weather */}
       <div style={styles.currentSection}>
@@ -89,7 +89,8 @@ export default function WeatherCard({ city = 'London' }) {
 
 
         {daily.map((day, i) => {
-          const pollen = pollenDaily?.[i];
+          // Keep "Today" aligned with the same current-overall score used by PollenCard.
+          const pollen = i === 0 ? (pollenOverall || pollenDaily?.[i]) : pollenDaily?.[i];
           const label = i === 0 ? 'Today' : i === 1 ? 'Tomorrow' : day.day;
 
           return (
@@ -134,6 +135,9 @@ const styles = {
     borderRadius: '24px',
     padding: '20px',
     width: '100%',
+    maxWidth: '100%',
+    boxSizing: 'border-box',
+    overflow: 'hidden',
     fontFamily: "'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif",
     boxShadow: "0 10px 18px rgba(0,0,0,0.12)",
   },

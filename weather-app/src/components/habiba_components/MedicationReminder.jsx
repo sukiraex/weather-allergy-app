@@ -9,11 +9,12 @@ function MedicationReminder({ pollenLevel }) {
       case 'Moderate':
         return 'linear-gradient(90deg, #c1cb45, #FFC107)';
       case 'High':
+        return 'linear-gradient(90deg, #F4A021, #EA7B7E, #CA448B)';
       case 'Very High':
       case 'Severe':
-        return 'linear-gradient(90deg, #ED8D20, #EA7B7E, #CA448B)';
+        return 'linear-gradient(90deg, #D96B6E, #CA448B)';
       default:
-        return 'linear-gradient(90deg, #ED8D20, #EA7B7E, #CA448B)';
+        return 'linear-gradient(90deg, #D96B6E, #CA448B)';
     }
   };
 
@@ -63,7 +64,8 @@ function MedicationReminder({ pollenLevel }) {
       padding: "18px",
       borderRadius: "24px",
       width: "100%",
-      hight: "600px",
+      maxWidth: "100%",
+      boxSizing: "border-box",
       color: "var(--widget-text)",
       alignSelf: "start",
       boxShadow: "0 10px 18px rgba(0,0,0,0.12)",
@@ -235,7 +237,7 @@ function MedicationReminder({ pollenLevel }) {
             background: 'var(--widget-bg)',
             borderRadius: '20px',
             width: '100%',
-            maxWidth: '420px',
+            maxWidth: '360px',
             maxHeight: '90vh',
             display: 'flex',
             flexDirection: 'column',

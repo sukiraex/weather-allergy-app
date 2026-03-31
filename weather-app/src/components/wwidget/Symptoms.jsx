@@ -41,7 +41,7 @@ const isActive = (currentLabel) => {
 
 
  
-export default function SymptomTracker ({city = 'London', pollenLevel}) {
+export default function SymptomTracker ({city = 'London', pollenLevel, cardHeight = '434px'}) {
 
     const getPollenGradient = (level) => {
         switch (level) {
@@ -51,11 +51,12 @@ export default function SymptomTracker ({city = 'London', pollenLevel}) {
             case 'Moderate':
                 return 'linear-gradient(to right, #c1cb45, #FFC107)';
             case 'High':
+                return 'linear-gradient(to right, #F4A021, #EA7B7E, #CA448B)';
             case 'Very High':
             case 'Severe':
-                return 'linear-gradient(to right, #ED8D20, #EA7B7E, #CA448B)';
+                return 'linear-gradient(to right, #D96B6E, #CA448B)';
             default:
-                return 'linear-gradient(to right, #ED8D20, #EA7B7E, #CA448B)';
+                return 'linear-gradient(to right, #D96B6E, #CA448B)';
         }
     };
 
@@ -74,7 +75,7 @@ export default function SymptomTracker ({city = 'London', pollenLevel}) {
 
 
     return (
-        <><div style={{...theme.card, width: '100%', height: '434px' , textAlign: 'center', flexDirection: 'column', position: 'relative', boxShadow: '0 10px 20px rgba(0,0,0,0.12)'}}>
+        <><div style={{...theme.card, width: '100%', height: cardHeight, textAlign: 'center', flexDirection: 'column', position: 'relative', boxShadow: '0 10px 20px rgba(0,0,0,0.12)'}}>
           
            <div style={{marginBottom: '40px', display: 'flex', justifyContent: 'space-between'}}>
            <h3 style={{margin: 0, textAlign: 'left', float: 'left', fontSize: "18px", fontWeight: '500', fontFamily: "inherit", color: 'var(--symptom-text)'}}>Symptom Tracker</h3>

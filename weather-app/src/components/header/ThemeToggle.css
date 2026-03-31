@@ -11,6 +11,8 @@
   background: var(--bg-location);
   flex-wrap: wrap;
   font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 /* light/dark toggle button */

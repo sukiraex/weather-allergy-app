@@ -22,11 +22,12 @@ export default function LogSymptoms({ onClose, onSave, savedRate, pollenLevel}){
             case 'Moderate':
                 return 'linear-gradient(to right, #c1cb45, #FFC107)';
             case 'High':
+                return 'linear-gradient(to right, #F4A021, #EA7B7E, #CA448B)';
             case 'Very High':
             case 'Severe':
-                return 'linear-gradient(to right, #ED8D20, #EA7B7E, #CA448B)';
+                return 'linear-gradient(to right, #D96B6E, #CA448B)';
             default:
-                return 'linear-gradient(to right, #ED8D20, #EA7B7E, #CA448B)';
+                return 'linear-gradient(to right, #D96B6E, #CA448B)';
         }
     };
 
@@ -63,7 +64,7 @@ export default function LogSymptoms({ onClose, onSave, savedRate, pollenLevel}){
 
     return (
         
-        <div style={{...theme.card, backgroundColor: 'var(--widget-bg)' , overflow: 'hidden', padding: 0, width: '380px', textAlign: 'left'}}> {/* clip to div */}
+        <div style={{...theme.card, backgroundColor: 'var(--widget-bg)' , overflow: 'hidden', padding: 0, width: 'min(340px, 100%)', boxSizing: 'border-box', textAlign: 'left'}}> {/* clip to div */}
             <div style={{background: gradient, padding: '24px 24px', display: 'flex', gap: '1px', maxWidth: '100%', color: '#FFFFFF', position: 'relative'   }}>
 
                 <img src={circle} alt="circle"  style={{width: '45px', height: '45px'}}/>
