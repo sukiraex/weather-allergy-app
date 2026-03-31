@@ -171,7 +171,7 @@ export default function SymptomTracker ({city = 'London', pollenLevel, cardHeigh
 
             {
             isOpen && (
-              <div style={{  position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'rgba(0,0,0,0.12)', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+              <div style={{  position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'rgba(0,0,0,0.4)', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                 <LogSymptoms onClose={() => setIsOpen(false)} onSave={onSave} savedRate={SavedRate} pollenLevel={pollenLevel} /> {/* passing state variables as props to logsymptoms so ratings can be saved and to allow pop up mechanisim */}
               </div>
             )
