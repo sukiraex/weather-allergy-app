@@ -35,7 +35,7 @@ export function useLocation(setLocationConfirmed) {
           try {
             // reverse geocode the lat/lon to get a city name using OpenWeather's Geocoding API
             const geoResponse = await fetch(
-              `http://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&limit=1&appid=${process.env.REACT_APP_WEATHER_API_KEY}`
+              `https://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&limit=1&appid=${process.env.REACT_APP_WEATHER_API_KEY}`
             );
             // take the first result and set displayCity to "City, Country"
             const geoData = await geoResponse.json();
@@ -85,7 +85,7 @@ export function useLocation(setLocationConfirmed) {
       setLoadingSuggestions(true);
       try {
         const res = await fetch(
-          `http://api.openweathermap.org/geo/1.0/direct?q=${encodeURIComponent(query)}&limit=5&appid=${process.env.REACT_APP_WEATHER_API_KEY}`
+          `https://api.openweathermap.org/geo/1.0/direct?q=${encodeURIComponent(query)}&limit=5&appid=${process.env.REACT_APP_WEATHER_API_KEY}`
         );
         const data = await res.json();
 

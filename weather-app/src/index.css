@@ -12,16 +12,18 @@ code {
     monospace;
 }
 .location-container {
-  background: #cfd6dc;
+  background: var(--bg-location);
   padding: 16px;
   border-radius: 18px;
-  width: 300px;
+  width: min(300px, 100%);
+  font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+  box-sizing: border-box;
 }
 
 /* message above search */
 .location-message {
   font-size: 12px;
-  color: #5b6d7a;
+  color: var(--text-secondary);
   margin-bottom: 10px;
 }
 
@@ -36,10 +38,10 @@ code {
   flex: 1;
   padding: 10px 14px;
   border-radius: 20px;
-  border: none;
+  border: 1px solid var(--border);
   outline: none;
-  background: #e8ecef;
-  font-size: 14px;
+  background: var(--bg-input);
+  color: var(--text-primary);
 }
 
 /* search button */
@@ -68,7 +70,7 @@ code {
 /* location text */
 .location-text {
   font-size: 14px;
-  color: #2c3e50;
+  color: var(--text-primary);
 }
 
 /* edit button */
@@ -76,12 +78,23 @@ code {
   padding: 6px 14px;
   border-radius: 18px;
   border: none;
-  background: #5d8ea4;
+  background: var(--accent);
   color: white;
   cursor: pointer;
   font-size: 12px;
 }
 
 .edit-location-button:hover {
-  background: #4e7f94;
+  background: var(--accent-hover);
+}
+
+@media (max-width: 900px) {
+  .location-container {
+    width: 100%;
+    padding: 10px;
+    border-radius: 16px;
+  }
+  .location-message {
+    margin-bottom: 6px;
+  }
 }

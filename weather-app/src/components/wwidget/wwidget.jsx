@@ -3,12 +3,12 @@ import { usePollen } from '../../hooks/usePollen';
 
 // Colours for weather widget
 const colors = {
-  cardBg: '#EFF6FF',
-  forecastRowBg: '#7AADC5',
-  textPrimary: '#1a2e42',
-  textSecondary: '#4a6580',
-  textMuted: '#7a95aa',
-  white: '#ffffff',
+  cardBg: 'var(--widget-bg)',
+  forecastRowBg: 'var(--widget-forecast-bg)',
+  textPrimary: 'var(--widget-text)',
+  textSecondary: 'var(--widget-subtext)',
+  textMuted: 'var(--widget-subtext)',
+  white: 'var(--widget-forecast-text)',
   rainBlue: '#49A0C9',
   pollenLow: '#59C08D',
   pollenMedium: '#CFBC73',
@@ -36,24 +36,24 @@ const WeatherIcon = ({ icon, size = 40 }) => (
   />
 );
 
-export default function WeatherCard({ city = 'London' }) {
+export default function WeatherCard({ city = 'London', cardHeight = 'auto' }) {
   const { current, hourly, daily, loading: wLoading, error: wError } = useWeather(city);
-  const { daily: pollenDaily, loading: pLoading } = usePollen(city);
+  const { overall: pollenOverall, daily: pollenDaily, loading: pLoading } = usePollen(city);
 
   if (wLoading || pLoading) return (
-    <div style={styles.card}>
+    <div style={{ ...styles.card, height: cardHeight }}>
       <p style={{ color: colors.textSecondary, padding: '20px' }}>Loading...</p>
     </div>
   );
 
   if (wError) return (
-    <div style={styles.card}>
+    <div style={{ ...styles.card, height: cardHeight }}>
       <p style={{ color: '#ef4444', padding: '20px' }}>{wError}</p>
     </div>
   );
 
   return (
-    <div style={styles.card}>
+    <div style={{ ...styles.card, height: cardHeight }}>
 
       {/* Current Weather */}
       <div style={styles.currentSection}>
@@ -74,7 +74,7 @@ export default function WeatherCard({ city = 'London' }) {
         {hourly.map((h, i) => (
           <div key={i} style={styles.hourlyItem}>
             <span style={styles.hourlyTime}>{h.time}</span>
-            <WeatherIcon icon={h.icon} size={28} />
+            <WeatherIcon icon={h.icon} size={39} />
             <span style={styles.hourlyTemp}>{h.temperature}°</span>
           </div>
         ))}
@@ -87,8 +87,10 @@ export default function WeatherCard({ city = 'London' }) {
           <span style={styles.forecastSubtitle}>Weather & Pollen Levels</span>
         </div>
 
+
         {daily.map((day, i) => {
-          const pollen = pollenDaily?.[i];
+          // Keep "Today" aligned with the same current-overall score used by PollenCard.
+          const pollen = i === 0 ? (pollenOverall || pollenDaily?.[i]) : pollenDaily?.[i];
           const label = i === 0 ? 'Today' : i === 1 ? 'Tomorrow' : day.day;
 
           return (
@@ -129,10 +131,13 @@ export default function WeatherCard({ city = 'London' }) {
 
 const styles = {
   card: {
-    backgroundColor: '#dce8f0',
+    backgroundColor: colors.cardBg,
     borderRadius: '24px',
     padding: '20px',
-    width: '340px',
+    width: '100%',
+    maxWidth: '100%',
+    boxSizing: 'border-box',
+    overflow: 'hidden',
     fontFamily: "'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif",
     boxShadow: "0 10px 18px rgba(0,0,0,0.12)",
   },
@@ -140,7 +145,7 @@ const styles = {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'flex-start',
-    marginBottom: '16px',
+    marginBottom: '12px',
   },
   currentLeft: {
     display: 'flex',
@@ -151,7 +156,7 @@ const styles = {
     width: '72px',
     height: '72px',
     borderRadius: '50%',
-    backgroundColor: '#7AADC5',
+    backgroundColor: colors.forecastRowBg,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -159,27 +164,27 @@ const styles = {
   temperature: {
     fontSize: '56px',
     fontWeight: '300',
-    color: '#1a2e42',
+    color: colors.textPrimary,
     lineHeight: 1,
     letterSpacing: '-2px',
   },
   condition: {
     fontSize: '18px',
     fontWeight: '500',
-    color: '#4c7095',
+    color: colors.textSecondary,
     textTransform: 'capitalize',
     marginTop: '4px',
   },
   hiLow: {
-    fontSize: '13px',
-    color: '#88a3bd',
+    fontSize: '12px',
+    color: colors.textSecondary,
     marginTop: '2px',
   },
   hourlyRow: {
     display: 'flex',
     justifyContent: 'space-between',
     padding: '10px 0px',
-    marginBottom: '16px',
+    marginBottom: '10px',
   },
   hourlyItem: {
     display: 'flex',
@@ -190,16 +195,16 @@ const styles = {
   },
   hourlyTime: {
     fontSize: '11px',
-    color: '#7AADC5',
+    color: 'var(--widget-hourly-time)',
     fontWeight: '500',
   },
   hourlyTemp: {
     fontSize: '13px',
     fontWeight: '600',
-    color: '#1a2e42',
+    color: colors.textPrimary,
   },
   forecastSection: {
-    backgroundColor: '#7AADC5',
+    backgroundColor: colors.forecastRowBg,
     borderRadius: '18px',
     padding: '14px',
     display: 'flex',
@@ -214,27 +219,27 @@ const styles = {
   forecastTitle: {
     fontSize: '15px',
     fontWeight: '700',
-    color: '#ffffff',
+    color: colors.white,
   },
   forecastSubtitle: {
     fontSize: '11px',
-    color: 'rgba(255,255,255,0.7)',
+    color: 'var(--widget-forecast-muted)',
     marginTop: '2px',
   },
   forecastRow: {
     display: 'flex',
     alignItems: 'center',
     gap: '8px',
-    padding: '10px 12px',
+    padding: '6px 12px',
     borderRadius: '14px',
     backgroundColor: 'rgba(255,255,255,0.15)',
-    marginBottom: '6px',
+    marginBottom: '4.48px',
     flexWrap: 'wrap',
   },
   forecastDay: {
     fontSize: '14px',
     fontWeight: '600',
-    color: '#ffffff',
+    color: colors.white,
     width: '70px',
     flexShrink: 0,
   },
@@ -247,7 +252,7 @@ const styles = {
   forecastTemps: {
     fontSize: '14px',
     fontWeight: '700',
-    color: '#ffffff',
+    color: colors.white,
     flexShrink: 0,
     marginLeft: 'auto',
   },
@@ -261,7 +266,7 @@ const styles = {
     gap: '4px',
     width: '100%',
     paddingLeft: '4px',
-    marginTop: '2px',
+    marginTop: '1px',
   },
   pollenIcon: {
     fontSize: '12px',

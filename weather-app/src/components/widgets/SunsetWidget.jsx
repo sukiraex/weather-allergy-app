@@ -2,18 +2,25 @@ import { useWeather } from "../../hooks/useWeather";
 import { useState, useEffect } from "react";
 
 export default function SunsetWidget({ city = "London" }) {
-  const { current, loading, error } = useWeather(city);
+  const { current, daily, loading, error } = useWeather(city);
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  const sunsetDate = current?.sunset
-    ? new Date(current.sunset * 1000)
-    : null;
-
-  const sunsetTime = sunsetDate
-    ? `${String(sunsetDate.getHours()).padStart(2, "0")}:${String(
-        sunsetDate.getMinutes()
-      ).padStart(2, "0")}`
+  const sunsetTime = current?.sunset
+    ? (() => {
+        const timezoneOffset = current?.timezoneOffset ?? 0;
+        // OpenWeather sunset is Unix seconds (UTC). Shift by city timezone offset.
+        const cityLocalDate = new Date((current.sunset + timezoneOffset) * 1000);
+        return `${String(cityLocalDate.getUTCHours()).padStart(2, "0")}:${String(
+          cityLocalDate.getUTCMinutes()
+        ).padStart(2, "0")}`;
+      })()
     : "--:--";
+
+  // Get today's rain chance
+  const todayRainChance = daily && daily[0] ? daily[0].rainChance || 0 : 0;
+
+  // Check if today has no precipitation
+  const isNoPrecipitationToday = todayRainChance < 10;
 
   const slides = [
     {
@@ -41,9 +48,11 @@ export default function SunsetWidget({ city = "London" }) {
       ),
     },
     {
-      title: "No-Precipitation Day Ahead",
-      value: "",
-      subtitle: "Expect tomorrow to be the next no precipitation day",
+      title: isNoPrecipitationToday ? "Clear Day Today!" : "Rain Expected",
+      value: `${todayRainChance}%`,
+      subtitle: isNoPrecipitationToday 
+        ? `No rain expected today (${todayRainChance}% chance)`
+        : `${todayRainChance}% chance of rain today`,
       icon: (
         <svg
           width="24"
@@ -130,27 +139,28 @@ export default function SunsetWidget({ city = "London" }) {
 
 const styles = {
   outerCard: {
-    width: "448px",
-    height: "200px",
-    backgroundColor: "#dbe7f1",
+    width: "100%",
+    height: "170px",
+    backgroundColor: "var(--widget-bg)",
     borderRadius: "30px",
-    padding: "18px",
+    padding: "14px",
     boxSizing: "border-box",
     boxShadow: "0 10px 20px rgba(0,0,0,0.12)",
     flexShrink: 0,
+    fontFamily: "'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif",
   },
 
   innerCard: {
     width: "100%",
     height: "100%",
-    backgroundColor: "#73a9cf",
+    backgroundColor: "var(--widget-accent)",
     borderRadius: "24px",
     boxSizing: "border-box",
     padding: "24px 28px 22px 28px",
     display: "flex",
     flexDirection: "column",
     justifyContent: "space-between",
-    color: "#ffffff",
+    color: "var(--widget-forecast-text)",
   },
 
   topRow: {
@@ -177,23 +187,23 @@ const styles = {
   },
 
   title: {
-    fontSize: "18px",
+    fontSize: "16px",
     fontWeight: "500",
     lineHeight: "1.2",
     whiteSpace: "nowrap",
   },
 
   time: {
-    fontSize: "34px",
+    fontSize: "30px",
     fontWeight: "700",
     lineHeight: "1",
     flexShrink: 0,
   },
 
   subtitle: {
-    fontSize: "15px",
+    fontSize: "13px",
     fontWeight: "400",
-    color: "rgba(255,255,255,0.95)",
+    color: "var(--widget-sunset-subtext)",
     marginTop: "2px",
   },
 
