@@ -159,7 +159,7 @@ weather-app/
  
 **The app loads but shows no weather data**
 - Check that `.env` exists in `weather-app/` and the key name is exactly `REACT_APP_WEATHER_API_KEY`.
-- Restart the dev server after creating or editing `.env` — environment variables are read at build time.
+- Make sure to restart the development server (npm start) after any changes to .env are made.
 - New OpenWeatherMap keys can take up to 1 hour to activate.
  
 **"City not found" or geolocation errors**
