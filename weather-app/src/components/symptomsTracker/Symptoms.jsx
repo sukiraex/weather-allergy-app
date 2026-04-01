@@ -1,4 +1,4 @@
-import { theme } from "../../symptomtheme";
+import { theme } from "../../theme/symptomtheme";
 import trackericon from './icons/trackericon.svg';
 import LogSymptoms from "./LogSymptoms";
 import { useState } from "react";

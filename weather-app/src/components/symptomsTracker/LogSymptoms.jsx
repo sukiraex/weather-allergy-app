@@ -1,4 +1,4 @@
-import { theme } from "../../symptomtheme";
+import { theme } from "../../theme/symptomtheme";
 import { useState } from "react";
 import  circle  from "./icons/Container.svg"
 import plus from "./icons/Button.svg";

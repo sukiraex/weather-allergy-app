@@ -2,12 +2,12 @@ import { useEffect, useState } from 'react';
 import { usePollen } from './hooks/usePollen';
 
 // widgets
-import WeatherCard from './components/wwidget/wwidget';
+import WeatherCard from './components/widgets/WeatherWidget';
 import WindWidget from './components/widgets/WindWidget';
 import HumidityWidget from './components/widgets/HumidityWidget';
 import UVWidget from './components/widgets/UVWidget';
 import SunsetWidget from './components/widgets/SunsetWidget';
-import SymptomTracker from './components/wwidget/Symptoms';
+import SymptomTracker from './components/symptomsTracker/Symptoms';
 
 
 // header components (location, time, theme toggle)
@@ -18,8 +18,8 @@ import ThemeToggle from './components/header/ThemeToggle.jsx';
 import { useLocation } from "./hooks/useLocation";
 import { useLocalTime } from "./hooks/useLocalTime";
 
-import PollenCard from './components/habiba_components/PollenCard.jsx';
-import MedicationReminder from './components/habiba_components/MedicationReminder.jsx';
+import PollenCard from './components/widgets/PollenCard';
+import MedicationReminder from './components/widgets/MedicationReminder';
 
 function App() {
   const [locationConfirmed, setLocationConfirmed] = useState(false); // whether the user has confirmed their location (either by allowing geolocation or selecting a suggestion)
