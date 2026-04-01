@@ -117,26 +117,32 @@ The live demo is hosted on Vercel (accessed at https://weather-allergy-app-six.v
  
 ```
 weather-app/
-├── public/                  # Static assets (index.html, icons)
+├── public/                  # Static assets (index.html, manifest, robots.txt)
+├── build/                   # Production build (generated after npm run build)
 ├── src/
 │   ├── api/
 │   │   ├── weatherapi.js    # OpenWeatherMap + Open-Meteo fetch helpers
 │   │   └── pollenapi.js     # Open-Meteo air-quality/pollen fetch helpers
 │   ├── components/
-│   │   ├── habiba_components/
-│   │   │   ├── PollenCard.jsx       # Pollen level card with type breakdown
-│   │   │   └── MedicationReminder.jsx
 │   │   ├── header/
 │   │   │   ├── LocationBox.jsx      # City search + geolocation
 │   │   │   ├── LocalTime.jsx        # Local time for selected city
-│   │   │   └── ThemeToggle.jsx
+│   │   │   └── ThemeToggle.jsx      # Light/dark mode toggle
+│   │   ├── icons/
+│   │   │   ├── PinIcon.jsx          # Location pin icon
+│   │   │   └── ThemeIcons.jsx       # Theme toggle icons
 │   │   ├── widgets/
-│   │   │   ├── WindWidget.jsx
-│   │   │   ├── HumidityWidget.jsx
-│   │   │   └── UVWidget.jsx
-│   │   └── wwidget/
-│   │       ├── wwidget.jsx          # Main 7-day/hourly WeatherCard
-│   │       └── Symptoms.jsx         # Symptom tracker
+│   │   │   ├── WeatherWidget.jsx    # Main weather card display
+│   │   │   ├── PollenCard.jsx       # Pollen level card with type breakdown
+│   │   │   ├── MedicationReminder.jsx # Medication reminder widget
+│   │   │   ├── HumidityWidget.jsx   # Humidity display widget
+│   │   │   ├── WindWidget.jsx       # Wind data widget
+│   │   │   ├── UVWidget.jsx         # UV index widget
+│   │   │   └── SunsetWidget.jsx     # Sunrise/sunset widget
+│   │   └── symptomsTracker/
+│   │       ├── Symptoms.jsx         # Symptom tracker component
+│   │       ├── LogSymptoms.jsx      # Log symptoms form
+│   │       └── icons/              # Symptom-related icons
 │   ├── hooks/
 │   │   ├── useLocation.js   # Geolocation + city search + suggestions
 │   │   ├── useWeather.js    # Weather data state management
@@ -144,15 +150,15 @@ weather-app/
 │   │   ├── useLocalTime.js  # Local time for a given timezone offset
 │   │   └── useTheme.js      # Light/dark/custom background theme
 │   ├── theme/
-│   │   └── colours.js       # CSS variable definitions
-│   ├── symptomtheme.js      # Symptom-to-colour mappings
-│   ├── App.js               # Root component — layout and routing between views
-│   └── index.js             # React entry point
-├── .env                     # Your local API key
+│   │   ├── colours.js       # CSS variable definitions
+│   │   └── symptomtheme.js  # Symptom-to-colour mappings
+│   ├── App.js               # Root component — layout and component orchestration
+│   ├── App.css              # Main app stylesheet
+│   ├── index.js             # React entry point
+│   └── index.css            # Global styles
+├── .env             # Your local API key (add to .gitignore)
 ├── package.json
-└── README.md
-```
- 
+└── README.md                    
 ---
  
 ## Troubleshooting
