@@ -159,6 +159,8 @@ weather-app/
 ├── .env             # Your local API key (add to .gitignore)
 ├── package.json
 └── README.md                    
+ 
+```
 ---
  
 ## Troubleshooting
