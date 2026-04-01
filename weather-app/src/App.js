@@ -293,7 +293,7 @@ function App() {
               </div>
             </div>
         </>
-        </>
+
       ) : (
         // Desktop layout: three-column grid with weather, pollen/symptoms, and medication/widgets
         <div style={{ display: 'grid', gridTemplateColumns: `repeat(3, ${desktopColumnWidth})`, columnGap: '40px', justifyContent: 'center', margin: '0 auto 40px' }}>
