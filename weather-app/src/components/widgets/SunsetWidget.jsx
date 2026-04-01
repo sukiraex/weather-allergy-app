@@ -1,10 +1,14 @@
 import { useWeather } from "../../hooks/useWeather";
 import { useState, useEffect } from "react";
 
+// SunsetWidget component displays a rotating carousel of sunset time, rain chance, and temperature
 export default function SunsetWidget({ city = "London" }) {
+  // Fetch weather data
   const { current, daily, loading, error } = useWeather(city);
+  // State for carousel slide index
   const [currentSlide, setCurrentSlide] = useState(0);
 
+  // Calculate sunset time in local timezone
   const sunsetTime = current?.sunset
     ? (() => {
         const timezoneOffset = current?.timezoneOffset ?? 0;
@@ -22,6 +26,7 @@ export default function SunsetWidget({ city = "London" }) {
   // Check if today has no precipitation
   const isNoPrecipitationToday = todayRainChance < 10;
 
+  // Array of slides for the carousel
   const slides = [
     {
       title: "Don't miss the sunset",
@@ -97,6 +102,7 @@ export default function SunsetWidget({ city = "London" }) {
     },
   ];
 
+  // Effect to auto-rotate slides every 15 seconds
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % slides.length);
@@ -105,6 +111,7 @@ export default function SunsetWidget({ city = "London" }) {
     return () => clearInterval(interval);
   }, [slides.length]);
 
+  // Handle loading and error states
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error</div>;
 

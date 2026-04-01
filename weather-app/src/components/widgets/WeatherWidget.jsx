@@ -16,6 +16,7 @@ const colors = {
   pollenVeryHigh: '#D96B6E',
 };
 
+// Function to get pollen color based on level
 const getPollenColor = (label) => {
   switch (label) {
     case 'Low': return colors.pollenLow;
@@ -26,6 +27,7 @@ const getPollenColor = (label) => {
   }
 };
 
+// Component to render weather icons from OpenWeatherMap
 const WeatherIcon = ({ icon, size = 40 }) => (
   <img
     src={`https://openweathermap.org/img/wn/${icon}@2x.png`}
@@ -36,16 +38,20 @@ const WeatherIcon = ({ icon, size = 40 }) => (
   />
 );
 
+// WeatherCard component displays current weather, hourly forecast, and 7-day forecast with pollen levels
 export default function WeatherCard({ city = 'London', cardHeight = 'auto' }) {
+  // Fetch weather and pollen data using custom hooks
   const { current, hourly, daily, loading: wLoading, error: wError } = useWeather(city);
   const { overall: pollenOverall, daily: pollenDaily, loading: pLoading } = usePollen(city);
 
+  // Show loading state while data is fetching
   if (wLoading || pLoading) return (
     <div style={{ ...styles.card, height: cardHeight }}>
       <p style={{ color: colors.textSecondary, padding: '20px' }}>Loading...</p>
     </div>
   );
 
+  // Show error state if weather fetch fails
   if (wError) return (
     <div style={{ ...styles.card, height: cardHeight }}>
       <p style={{ color: '#ef4444', padding: '20px' }}>{wError}</p>
@@ -55,7 +61,7 @@ export default function WeatherCard({ city = 'London', cardHeight = 'auto' }) {
   return (
     <div style={{ ...styles.card, height: cardHeight }}>
 
-      {/* Current Weather */}
+      {/* Current Weather Section */}
       <div style={styles.currentSection}>
         <div style={styles.currentLeft}>
           <div style={styles.temperature}>{current.temperature}°</div>
@@ -69,7 +75,7 @@ export default function WeatherCard({ city = 'London', cardHeight = 'auto' }) {
         </div>
       </div>
 
-      {/* Hourly Forecast */}
+      {/* Hourly Forecast Section */}
       <div style={styles.hourlyRow}>
         {hourly.map((h, i) => (
           <div key={i} style={styles.hourlyItem}>
@@ -80,7 +86,7 @@ export default function WeatherCard({ city = 'London', cardHeight = 'auto' }) {
         ))}
       </div>
 
-      {/* 7-Day Forecast */}
+      {/* 7-Day Forecast Section with Weather & Pollen Levels */}
       <div style={styles.forecastSection}>
         <div style={styles.forecastHeader}>
           <span style={styles.forecastTitle}>7-Day Forecast</span>

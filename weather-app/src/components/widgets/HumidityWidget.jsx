@@ -1,13 +1,17 @@
 import { useWeather } from "../../hooks/useWeather";
 
+// HumidityWidget component displays the current humidity percentage for a given city
 export default function HumidityWidget({ city = "London" }) {
+  // Fetch current weather data
   const { current, loading, error } = useWeather(city);
 
+  // Handle loading and error states
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error</div>;
 
   return (
     <div style={styles.card}>
+      {/* Humidity icon */}
       <div style={styles.icon}>
         <svg
           width="24"
@@ -29,7 +33,9 @@ export default function HumidityWidget({ city = "London" }) {
         </svg>
       </div>
 
+      {/* Humidity value */}
       <div style={styles.value}>{current.humidity}%</div>
+      {/* Label */}
       <div style={styles.label}>Humidity</div>
     </div>
   );

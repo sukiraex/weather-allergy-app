@@ -1,19 +1,24 @@
 import { useWeather } from "../../hooks/useWeather";
 
+// UVWidget component displays the UV index level for a given city
 export default function UVWidget({ city = "London" }) {
+  // Fetch current weather data
   const { current, loading, error } = useWeather(city);
 
+  // Handle loading and error states
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error</div>;
 
   const uvValue = current.uvIndex;
 
+  // Determine UV label based on index value
   let uvLabel = "Low";
   if (uvValue >= 6) uvLabel = "High";
   else if (uvValue >= 3) uvLabel = "Moderate";
 
   return (
     <div style={styles.card}>
+      {/* UV icon */}
       <div style={styles.icon}>
         <svg
           width="24"
@@ -34,7 +39,9 @@ export default function UVWidget({ city = "London" }) {
         </svg>
       </div>
 
+      {/* UV level label */}
       <div style={styles.value}>{uvLabel}</div>
+      {/* Label */}
       <div style={styles.label}>UV</div>
     </div>
   );

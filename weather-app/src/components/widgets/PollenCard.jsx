@@ -1,7 +1,9 @@
 import React from "react";
 
+// PollenCard component displays pollen count information with overall level and breakdown by type
 function PollenCard({ data }) {
 
+  // Function to get gradient color based on pollen level
   const getPollenGradient = (level) => {
     switch (level) {
       case 'Low':
@@ -21,6 +23,7 @@ function PollenCard({ data }) {
 
   const gradient = data && data.overall ? getPollenGradient(data.overall.label) : 'linear-gradient(135deg, #f7971e, #f857a6)';
 
+  // Show loading state if no data
   if (!data || !data.overall || !data.types) {
     return (
       <div style={{
@@ -51,7 +54,7 @@ function PollenCard({ data }) {
       boxShadow: "0 10px 18px rgba(0,0,0,0.12)",
     }}>
 
-      {/* header */}
+      {/* Header with icon and title */}
       <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "10px" }}>
         
         <div style={{
@@ -76,7 +79,7 @@ function PollenCard({ data }) {
 
       </div>
 
-      {/* glass box */}
+      {/* Glass box with score and breakdown */}
       <div style={{
         background: "rgba(255,255,255,0.15)",
         borderRadius: "15px",
@@ -84,7 +87,7 @@ function PollenCard({ data }) {
         marginTop: "10px"
       }}>
 
-        {/* score */}
+        {/* Overall score */}
         <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
           <h1 style={{ margin: 0, fontSize: "30px" }}>
             {data.overall.score}
@@ -94,7 +97,7 @@ function PollenCard({ data }) {
           </span>
         </div>
 
-        {/* bars */}
+        {/* Progress bars for each pollen type */}
         {["tree", "grass", "weed"].map((type) => (
           <div key={type} style={{ marginTop: "12px" }}>
             <div style={{ display: "flex", justifyContent: "space-between" }}>
@@ -120,7 +123,7 @@ function PollenCard({ data }) {
 
       </div>
 
-      {/* trend */}
+      {/* Trend indicator */}
       <p style={{ marginTop: "10px", fontSize: "12px", opacity: 0.9 }}>
         ↗ {data.trendLabel}
       </p>

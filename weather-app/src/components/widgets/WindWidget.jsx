@@ -1,13 +1,17 @@
 import { useWeather } from "../../hooks/useWeather";
 
+// WindWidget component displays the current wind speed for a given city
 export default function WindWidget({ city = "London" }) {
+  // Fetch current weather data
   const { current, loading, error } = useWeather(city);
 
+  // Handle loading and error states
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error</div>;
 
   return (
     <div style={styles.card}>
+      {/* Wind icon */}
       <div style={styles.icon}>
         <svg
           width="24"
@@ -22,7 +26,9 @@ export default function WindWidget({ city = "London" }) {
         </svg>
       </div>
 
+      {/* Wind speed value */}
       <div style={styles.value}>{current.windSpeed}mph</div>
+      {/* Label */}
       <div style={styles.label}>Wind</div>
     </div>
   );

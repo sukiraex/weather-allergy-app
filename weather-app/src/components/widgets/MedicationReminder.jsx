@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 
+// MedicationReminder component allows users to manage daily medications with reminders
 function MedicationReminder({ pollenLevel }) {
+  // Function to get gradient color based on pollen level
   const getPollenGradient = (level) => {
     switch (level) {
       case 'Low':
@@ -19,23 +21,27 @@ function MedicationReminder({ pollenLevel }) {
   };
 
   const gradient = getPollenGradient(pollenLevel);
+  // State for list of medications
   const [meds, setMeds] = useState([]);
-
+  // State for add medication form
   const [showForm, setShowForm] = useState(false);
   const [name, setName] = useState("");
   const [dose, setDose] = useState("");
   const [time, setTime] = useState("");
 
+  // Function to toggle medication as taken
   const toggleTaken = (id) => {
     setMeds(meds.map(m =>
       m.id === id ? { ...m, taken: !m.taken } : m
     ));
   };
 
+  // Function to remove a medication
   const removeMed = (id) => {
     setMeds(meds.filter(m => m.id !== id));
   };
 
+  // Function to add a new medication
   const addMed = () => {
     if (!name || !dose || !time) return;
 
@@ -54,6 +60,7 @@ function MedicationReminder({ pollenLevel }) {
     setShowForm(false);
   };
 
+  // Calculate progress and next dose
   const takenCount = meds.filter(m => m.taken).length;
   const progress = meds.length ? (takenCount / meds.length) * 100 : 0;
   const nextDose = meds.find(m => !m.taken);
@@ -72,7 +79,7 @@ function MedicationReminder({ pollenLevel }) {
       fontFamily: "'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif"
     }}>
 
-      {/* header */}
+      {/* Header with add button */}
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
         <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
           <div style={{
@@ -106,7 +113,7 @@ function MedicationReminder({ pollenLevel }) {
         </button>
       </div>
 
-      {/* progress */}
+      {/* Progress bar */}
       <p style={{ fontSize: "12px", margin: "6px 0", opacity: 0.8 }}>
         {takenCount}/{meds.length} taken today
       </p>
@@ -125,7 +132,7 @@ function MedicationReminder({ pollenLevel }) {
         }} />
       </div>
 
-      {/* empty state or med list */}
+      {/* Medication list or empty state */}
       {meds.length === 0 ? (
         <div style={{
           background: "var(--symptom-warning-bg)",
@@ -144,6 +151,7 @@ function MedicationReminder({ pollenLevel }) {
         </div>
       ) : (
         <>
+          {/* List of medications */}
           {meds.map(m => (
             <div key={m.id} style={{
               background: "var(--bg-input)",
@@ -185,6 +193,7 @@ function MedicationReminder({ pollenLevel }) {
             </div>
           ))}
 
+          {/* Next dose reminder */}
           {nextDose ? (
             <div style={{
               background: "var(--symptom-warning-bg)",
@@ -219,7 +228,7 @@ function MedicationReminder({ pollenLevel }) {
         </>
       )}
 
-      {/* modal */}
+      {/* Add medication modal */}
       {showForm && (
         <div style={{
           position: 'fixed',
@@ -244,7 +253,7 @@ function MedicationReminder({ pollenLevel }) {
             overflow: 'hidden'
           }}>
 
-            {/* header */}
+            {/* Modal header */}
             <div style={{
               background: gradient,
               padding: "16px",
@@ -270,7 +279,7 @@ function MedicationReminder({ pollenLevel }) {
               </button>
             </div>
 
-            {/* content */}
+            {/* Modal content */}
             <div style={{
               padding: '20px',
               display: "flex",
@@ -322,7 +331,7 @@ function MedicationReminder({ pollenLevel }) {
               </div>
             </div>
 
-            {/* footer */}
+            {/* Modal footer */}
             <div style={{
               display: "flex",
               gap: "12px",
@@ -361,6 +370,7 @@ function MedicationReminder({ pollenLevel }) {
   );
 }
 
+// Function to format time from 24-hour to 12-hour format
 function formatTime(time) {
   const [h, m] = time.split(":");
   const hour = Number(h);

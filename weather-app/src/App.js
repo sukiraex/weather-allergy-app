@@ -13,24 +13,27 @@ import SymptomTracker from './components/symptomsTracker/Symptoms';
 // header components (location, time, theme toggle)
 import LocationBox from './components/header/LocationBox.jsx';
 import LocalTime from './components/header/LocalTime.jsx';
-import { useTheme } from "./hooks/useTheme"; 
-import ThemeToggle from './components/header/ThemeToggle.jsx'; 
+import { useTheme } from "./hooks/useTheme";
+import ThemeToggle from './components/header/ThemeToggle.jsx';
 import { useLocation } from "./hooks/useLocation";
 import { useLocalTime } from "./hooks/useLocalTime";
 
 import PollenCard from './components/widgets/PollenCard';
 import MedicationReminder from './components/widgets/MedicationReminder';
 
+// Main App component that renders the weather and allergy app
 function App() {
+  // State for location confirmation and mobile responsiveness
   const [locationConfirmed, setLocationConfirmed] = useState(false); // whether the user has confirmed their location (either by allowing geolocation or selecting a suggestion)
   const [isMobile, setIsMobile] = useState(() => window.innerWidth <= 900);
   const [activeBottomTab, setActiveBottomTab] = useState('forecast');
   const [isMobilePopupOpen, setIsMobilePopupOpen] = useState(false);
   const [viewportHeight, setViewportHeight] = useState(() => window.innerHeight);
 
+  // Theme management hook
   const { isDark, toggleTheme, customBg, setCustomBg } = useTheme(); // for theme toggling
 
-  // location to get weather for, and all the related info like suggestions, errors etc
+  // Location management hook - handles geolocation, manual input, suggestions
   const {
     location,
     displayCity,
@@ -44,6 +47,7 @@ function App() {
     selectSuggestion,
   } = useLocation(setLocationConfirmed);
  
+  // Local time hook for the selected location
   const localTime = useLocalTime(location);  // get the local time for the location (used in header and sunset widget)
   const cleanCity = displayCity
     ? displayCity.split(",")[0].trim()
@@ -56,6 +60,7 @@ function App() {
     trendLabel,
   } = pollen;
 
+  // Effect to handle window resize for mobile responsiveness
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 900);
@@ -143,7 +148,7 @@ function App() {
   return (
     <div style={pageStyle}>
  
-      {/* header (location, time, theme toggle) */}
+      {/* Header section with location, time, and theme toggle */}
       <div style={{
         display: 'flex',
         alignItems: isMobile ? 'stretch' : 'center',
@@ -182,6 +187,7 @@ function App() {
  
       </div>
  
+      {/* Mobile layout: scaled cards with bottom tab navigation */}
       {isMobile ? (
         <>
           <div style={phoneContainerStyle}>
@@ -287,7 +293,9 @@ function App() {
               </div>
             </div>
         </>
+        </>
       ) : (
+        // Desktop layout: three-column grid with weather, pollen/symptoms, and medication/widgets
         <div style={{ display: 'grid', gridTemplateColumns: `repeat(3, ${desktopColumnWidth})`, columnGap: '40px', justifyContent: 'center', margin: '0 auto 40px' }}>
           {/* Left column - Weather */}
           <div style={{ width: desktopColumnWidth, height: desktopColumnHeight }}>
