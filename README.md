@@ -53,15 +53,64 @@ The app uses **two data sources**:
 ---
  
 ## Installation & Setup
- 
-### 1. Clone the repository
- 
+
+### Quick Setup from Submitted Files
+
+If you are receiving only the `src` folder, follow these steps to run the project on your local PC:
+
+#### 1. Install Node.js
+First, ensure you have **Node.js 18 or higher** installed on your machine. Download it from [nodejs.org](https://nodejs.org/). Node.js comes with npm, which you'll need for this setup.
+
+Verify installation:
+```bash
+node -v
+npm -v
+```
+
+#### 2. Create a new React app
+Use Create React App to generate a new project:
+```bash
+npx create-react-app name-your-app
+cd name-your-app
+```
+Replace `name-your-app` with your desired project name.
+
+#### 3. Replace the src folder
+Delete the default `src` folder that was created, then extract and replace it with the `src` folder from the submitted zip file.
+
+#### 4. Install axios
+Install the axios package, which is required for API calls:
+```bash
+npm install axios
+```
+
+#### 5. Add environment variable
+Create a `.env` file in your project root directory:
+```bash
+# .env
+REACT_APP_WEATHER_API_KEY=your_openweathermap_api_key_here
+```
+
+#### 6. Run the app
+Start the development server:
+```bash
+npm start
+```
+
+The app will open at [http://localhost:3000](http://localhost:3000).
+
+---
+
+### Clone the Repository
+
+If you have access to the full repository:
+
 ```bash
 git clone https://github.com/sukiraex/weather-allergy-app.git
 cd weather-allergy-app/weather-app
 ```
  
-### 2. Install dependencies
+### Install dependencies
  
 ```bash
 npm install
